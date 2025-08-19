@@ -1,4 +1,30 @@
-const mysql = require("mysql2/promise");
+const mysql = require('mysql2/promise');
+require('dotenv').config();
+
+const pool = mysql.createPool({
+    host: 'metro.proxy.rlwy.net',     // tu host público
+    user: 'root',                       // tu usuario
+    password: 'qjwKPuQfrgABbChcQCozipfLeCgijzSF',
+    database: /*'railway'*/ 'pitshop_manager',
+    port: 15941,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
+
+(async () => {
+    try {
+        const conn = await pool.getConnection();
+        console.log("✅ Conexión exitosa a la base de datos en Railway");
+        conn.release();
+    } catch (err) {
+        console.error("❌ Error al conectar con la base de datos:", err.message);
+    }
+})();
+
+module.exports = { pool };
+
+/*const mysql = require("mysql2/promise");
 require("dotenv").config();
 
 const pool = mysql.createPool({
@@ -20,3 +46,4 @@ const connectDB = async () => {
 };
 
 module.exports = { pool, connectDB };
+*/

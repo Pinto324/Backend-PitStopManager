@@ -1,5 +1,5 @@
 const LoginService = require("../services/LoginService");
-const PersonaService = require("../services/PersonaService");
+//const PersonaService = require("../services/PersonaService");
 const RolService = require("../services/RolService");
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'Pitstop';
