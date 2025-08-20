@@ -1,8 +1,61 @@
-const MasterController = require("./MasterController");
+// controllers/UsuarioController.js
+const MasterController = require('./MasterController');
+const EmailService = require('../services/EmailService');
+const CodigoVerificacionService = require('../services/CodigoVerificacionService');
+const cripto = require('../security/cripto');
 
-class UsuarioController extends MasterController{
+class UsuarioController extends MasterController {
   constructor() {
     super('Usuario');
+  }
+
+  // Sobrescribir el método insertToDB para agregar funcionalidad de email
+  async insertToDB(req, res) {
+    try {
+      const data = req.body;
+
+      // 1. Encriptar la contraseña antes de insertar
+      if (data.password) {
+        data.password = await cripto.encriptar(data.password);
+      }
+
+      // 2. Insertar el usuario usando la lógica del padre
+      const insertedId = await this.insertToDBTable(data);
+
+      // 3. Enviar email de verificación (solo si tiene email)
+      if (data.email) {
+        try {
+          const codigo = await CodigoVerificacionService.crearCodigoVerificacion(insertedId);
+
+          await EmailService.enviarEmailVerificacion(
+            data.email,
+            codigo,
+            data.nombre || data.username || 'Usuario'
+          );
+
+          console.log(`✅ Email de verificación enviado a: ${data.email}`);
+
+        } catch (emailError) {
+          console.error('⚠️ Error enviando email (usuario creado):', emailError.message);
+        }
+      }
+
+      res.status(201).json({
+        message: "Usuario creado correctamente. " +
+          (data.email ? "Se ha enviado un código de verificación a tu email." : ""),
+        id: insertedId,
+        necesitaVerificacion: !!data.email
+      });
+
+    } catch (error) {
+      console.error('Error en UsuarioController.insertToDB:', error);
+      res.status(500).json({
+        message: "Error al crear Usuario",
+        name: error.name,
+        code: error.code || "unknown",
+        errorMessage: error.message
+      });
+    }
   }
 }
 

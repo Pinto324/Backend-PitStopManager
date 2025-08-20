@@ -1,16 +1,24 @@
-
-const { pool } = require("../config/db");
-const criptp = require('../security/cripto')
-
+const Model = require('../controllers/ModelController');
+const cripto = require('../security/cripto');
 
 class LoginService {
     async loginUser(data) {
-        const { username, password } = data;
-        const [result] = await pool.execute(
-            "CALL getUser(?,?);",
-            [username, (await criptp.encriptar(password))]
-        );
-        return result[0][0];
+        try {
+            const { username, password } = data;
+
+            if (!username || !password) {
+                throw new Error('Credenciales incompletas');
+            }
+
+            const passwordEncriptado = await cripto.encriptar(password);
+            // Usar el método del Model
+            const usuario = await Model.findByCredentials(username, passwordEncriptado);
+            return usuario;
+
+        } catch (error) {
+            console.error("❌ Error en LoginService:", error.message);
+            throw error;
+        }
     }
 }
 

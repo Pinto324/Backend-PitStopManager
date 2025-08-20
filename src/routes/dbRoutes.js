@@ -16,5 +16,4 @@ router.get("/usuario:id", UsuarioController.getByID.bind(UsuarioController));
 router.post("/usuario", UsuarioController.insertToDB.bind(UsuarioController));
 router.put("/usuario:id", UsuarioController.updateById.bind(UsuarioController));
 router.delete("/usuario:id", UsuarioController.deleteById.bind(UsuarioController));
-
 module.exports = router;

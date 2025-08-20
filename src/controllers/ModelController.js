@@ -1,9 +1,10 @@
 // controllers/ModelController.js
-const  pool = require('../config/db');
+const pool = require('../config/db');
 
 const fieldsArray = {
   Rol: ['rol'],
-  Usuario: ['nombre', 'apellido', 'username', 'password', 'rol', 'email', 'telefono', 'correo_verificado']
+  Usuario: ['nombre', 'apellido', 'username', 'password', 'rol', 'email', 'telefono', 'correo_verificado'],
+  Codigo_verificacion: ['id_usuario', 'codigo', 'fecha', 'hora', 'booleaan', 'alerta']
   // aquí puedes ir agregando los demás...
 };
 
@@ -67,6 +68,22 @@ class Model {
       throw err;
     }
   }
+  static async findByCredentials(username, password) {
+    try {
+      const query = `
+            SELECT * FROM Usuario
+            WHERE (username = ? OR email = ?) 
+            AND password = ?
+            LIMIT 1
+        `;
+      const [rows] = await pool.query(query, [username, username, password]);
+      return rows[0] || null;
+    } catch (err) {
+      console.error('Error in findByCredentials:', err.message);
+      throw err;
+    }
+  }
+
 }
 
 module.exports = Model;
