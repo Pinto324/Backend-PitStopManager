@@ -39,6 +39,36 @@ class UsuarioController {
             });
         }
     }
+
+    async updateUsuario(req, res) {
+        try {
+            const { id } = req.params;   // id del usuario a actualizar
+            const { columnName, value } = req.body;  // columna y nuevo valor
+    
+            const result = await UsuarioService.updateById(id, value, columnName);
+    
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    message: "Usuario no encontrado"
+                });
+            }
+    
+            res.status(200).json({
+                message: "Usuario actualizado correctamente",
+                id,
+                columnName,
+                newValue: value
+            });
+        } catch (error) {
+            res.status(500).json({
+                message: "Error al actualizar Usuario",
+                name: error.name,
+                code: error.code || "unknown",
+                errorMessage: error.message
+            });
+        }
+    }
+    
     
 }
 
