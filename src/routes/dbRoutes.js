@@ -33,18 +33,374 @@ const ReciboController = require("../controllers/ReciboController");
 
 
 // Rol Routes
+/**
+ * @swagger
+ * /rol:
+ *   get:
+ *     summary: Obtiene todos los roles
+ *     tags:
+ *       - Rol
+ *     responses:
+ *       200:
+ *         description: Lista de roles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   rol:
+ *                     type: string
+ *                     example: Administrador
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get("/rol", RolController.getAll.bind(RolController));
+
+/**
+ * @swagger
+ * /rol/{id}:
+ *   get:
+ *     summary: Obtiene un rol por ID
+ *     tags:
+ *       - Rol
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del rol a obtener
+ *     responses:
+ *       200:
+ *         description: Rol encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 rol:
+ *                   type: string
+ *                   example: Administrador
+ *       404:
+ *         description: Rol no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get("/rol/:id", RolController.getByID.bind(RolController));
+
+/**
+ * @swagger
+ * /rol:
+ *   post:
+ *     summary: Crea un nuevo rol
+ *     tags:
+ *       - Rol
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               rol:
+ *                 type: string
+ *                 example: Proveedor
+ *     responses:
+ *       201:
+ *         description: Rol creado correctamente
+ *       400:
+ *         description: Datos inválidos
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.post("/rol", RolController.insertToDB.bind(RolController));
+
+/**
+ * @swagger
+ * /rol/{id}:
+ *   put:
+ *     summary: Actualiza un campo de un rol por ID
+ *     tags:
+ *       - Rol
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del rol a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               columnName:
+ *                 type: string
+ *                 example: rol
+ *               value:
+ *                 type: string
+ *                 example: Proveedor
+ *     responses:
+ *       200:
+ *         description: Rol actualizado correctamente
+ *       404:
+ *         description: Rol no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.put("/rol/:id", RolController.updateById.bind(RolController));
+
+/**
+ * @swagger
+ * /rol/{id}:
+ *   delete:
+ *     summary: Elimina un rol por ID
+ *     tags:
+ *       - Rol
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del rol a eliminar
+ *     responses:
+ *       200:
+ *         description: Rol eliminado correctamente
+ *       404:
+ *         description: Rol no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.delete("/rol/:id", RolController.deleteById.bind(RolController));
 
+
 // Usuario Routes
+
+/**
+ * @swagger
+ * /usuario:
+ *   get:
+ *     summary: Obtiene todos los usuarios
+ *     tags:
+ *       - Usuario
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   nombre:
+ *                     type: string
+ *                     example: Juan
+ *                   apellido:
+ *                     type: string
+ *                     example: Perez
+ *                   username:
+ *                     type: string
+ *                     example: juanp
+ *                   password:
+ *                     type: string
+ *                     example: password
+ *                   rol:
+ *                     type: integer
+ *                     example: 1
+ *                   email:
+ *                     type: string
+ *                     example: 'juan.example.com'
+ *                   telefono:
+ *                     type: string
+ *                     example: "+50212345678"
+ *                   correo_verificado:
+ *                     type: boolean
+ *                     example: true
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get("/usuario", UsuarioController.getAll.bind(UsuarioController));
+
+/**
+ * @swagger
+ * /usuario/{id}:
+ *   get:
+ *     summary: Obtiene un usuario por ID
+ *     tags:
+ *       - Usuario
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del usuario a obtener
+ *     responses:
+ *       200:
+ *         description: Usuario encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 nombre:
+ *                   type: string
+ *                   example: Juan
+ *                 apellido:
+ *                   type: string
+ *                   example: Perez
+ *                 username:
+ *                   type: string
+ *                   example: juanp
+ *                 password:
+ *                   type: string
+ *                   example: password
+ *                 rol:
+ *                   type: integer
+ *                   example: 1
+ *                 email:
+ *                   type: string
+ *                   example: 'juan.example.com'
+ *                 telefono:
+ *                   type: string
+ *                   example: "+50212345678"
+ *                 correo_verificado:
+ *                   type: boolean
+ *                   example: true
+ *       404:
+ *         description: Usuario no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.get("/usuario/:id", UsuarioController.getByID.bind(UsuarioController));
+
+/**
+ * @swagger
+ * /usuario:
+ *   post:
+ *     summary: Crea un nuevo usuario
+ *     tags:
+ *       - Usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *                 example: Juan
+ *               apellido:
+ *                 type: string
+ *                 example: Perez
+ *               username:
+ *                 type: string
+ *                 example: juanp
+ *               password:
+ *                 type: string
+ *                 example: 123456
+ *               rol:
+ *                 type: integer
+ *                 example: 1
+ *               email:
+ *                 type: string
+ *                 example: 'juan.example.com'
+ *               telefono:
+ *                 type: string
+ *                 example: "+50212345678"
+ *               correo_verificado:
+ *                 type: boolean
+ *                 example: true
+ *     responses:
+ *       201:
+ *         description: Usuario creado correctamente
+ *       400:
+ *         description: Datos inválidos
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.post("/usuario", UsuarioController.insertToDB.bind(UsuarioController));
+
+/**
+ * @swagger
+ * /usuario/{id}:
+ *   put:
+ *     summary: Actualiza un campo de un usuario por ID
+ *     tags:
+ *       - Usuario
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del usuario a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               columnName:
+ *                 type: integer
+ *                 example: rol
+ *               value:
+ *                 type: integer
+ *                 example: 2
+ *     responses:
+ *       200:
+ *         description: Usuario actualizado correctamente
+ *       404:
+ *         description: Usuario no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.put("/usuario/:id", UsuarioController.updateById.bind(UsuarioController));
+
+/**
+ * @swagger
+ * /usuario/{id}:
+ *   delete:
+ *     summary: Elimina un usuario por ID
+ *     tags:
+ *       - Usuario
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del usuario a eliminar
+ *     responses:
+ *       200:
+ *         description: Usuario eliminado correctamente
+ *       404:
+ *         description: Usuario no encontrado
+ *       500:
+ *         description: Error interno del servidor
+ */
 router.delete("/usuario/:id", UsuarioController.deleteById.bind(UsuarioController));
+
 
 // Empleado Routes
 router.get("/empleado", EmpleadoController.getAll.bind(EmpleadoController));
