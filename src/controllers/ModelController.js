@@ -4,8 +4,35 @@ const pool = require('../config/db');
 const fieldsArray = {
   Rol: ['rol'],
   Usuario: ['nombre', 'apellido', 'username', 'password', 'rol', 'email', 'telefono', 'correo_verificado'],
-  Codigo_verificacion: ['id_usuario', 'codigo', 'fecha', 'hora', 'booleaan', 'alerta']
-  // aquí puedes ir agregando los demás...
+  Empleado: ['id_usuario', 'es_mecanico', 'es_interno'],
+  Tipo_Especialidad: ['tipo_especialidad'],
+  Especialidad: ['id_empleado', 'id_tipo_especialidad'],
+  Vehiculo: ['id_cliente', 'marca', 'modelo', 'placas'],
+  Proveedor: ['id_usuario', 'nombre_empresa', 'es_servicio', 'descripcion'],
+  Repuesto: ['nombre_repuesto'],
+  Proveedor_Repuesto: ['id_proveedor', 'id_repuesto', 'precio'],
+  Estado_Pedido: ['estado'],
+  Pedido: ['fecha_pedido', 'fecha_entrega', 'estado'],
+  Estado_Pedido_Detalle: ['estado'],
+  Pedido_Detalle: ['id_pedido', 'id_proveedor_repuesto', 'estado', 'cantidad_solicitada'],
+  Inventario: ['id_repuesto', 'cantidad', 'precio_unitario'],
+  Estado_Orden_Reparacion: ['estado'],
+  Orden_Reparacion: ['id_vehiculo', 'fecha_ingreso', 'hora_ingreso', 'fecha_egreso', 'hora_egreso', 'estado'],
+  Servicio: ['servicio', 'es_correctivo', 'descripcion', 'tiempo_estimado', 'precio'],
+  Estado_Trabajo: ['estado'],
+  Servicio_Orden_Reparacion: ['id_orden_reparacion', 'id_servicio', 'id_estado_trabajo'],
+  Inventario_Orden_Reparacion: ['id_inventario', 'id_orden_reparacion', 'cantidad'],
+  Factura: ['id_orden_reparacion', 'fecha', 'total'],
+  Pago: ['id_factura', 'monto', 'fecha'],
+  Chat_Usuario: ['id_orden_reparacion', 'mensaje', 'visto'],
+  Tipo_Notificacion: ['tipo_notificacion'],
+  Notificacion: ['id_pedido', 'id_tipo_notificacion', 'comentario', 'fecha', 'hora'],
+  Empleado_Orden_Reparacion: ['id_empleado', 'id_orden_reparacion', 'es_especialista'],
+  TipoReporte: ['tipo_reporte', 'mostrar_mecanico'],
+  Reporte: ['id_empleado_orden_reparacion', 'id_tipo_reporte', 'observaciones', 'solucionado', 'fecha', 'hora'],
+  Codigo_verificacion: ['id_usuario', 'codigo', 'fecha', 'hora', 'booleaan', 'alerta'],
+  Recibo: ['id_pedido', 'fecha', 'total']
+  
 };
 
 class Model {
