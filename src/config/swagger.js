@@ -6,9 +6,9 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "API de tu Proyecto",
+      title: "PitStop Manager",
       version: "1.0.0",
-      description: "Documentación automática con Swagger",
+      description: "Documentación de la API con Swagger",
     },
     servers: [
       {
