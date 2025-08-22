@@ -285,6 +285,9 @@ router.get("/usuario", UsuarioController.getAll.bind(UsuarioController));
  *                 correo_verificado:
  *                   type: boolean
  *                   example: true
+ *                 verificacion_activa:
+ *                   type: boolean
+ *                   example: true
  *       404:
  *         description: Usuario no encontrado
  *       500:

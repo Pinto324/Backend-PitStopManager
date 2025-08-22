@@ -61,7 +61,7 @@ class ModelService {
             case 'Rol':
                 return new Rol(null, data.rol);
             case 'Usuario':
-                return new Usuario(null, data.nombre, data.apellido, data.username, data.password, data.rol, data.email, data.telefono, data.correo_verificado);
+                return new Usuario(null, data.nombre, data.apellido, data.username, data.password, data.rol, data.email, data.telefono, data.correo_verificado, data.verificacion_activa);
             case 'Empleado':
                 return new Empleado(null, data.id_usuario, data.es_mecanico, data.es_interno);
             case 'Tipo_Especialidad':

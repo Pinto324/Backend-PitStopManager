@@ -3,7 +3,7 @@ const pool = require('../config/db');
 
 const fieldsArray = {
   Rol: ['rol'],
-  Usuario: ['nombre', 'apellido', 'username', 'password', 'rol', 'email', 'telefono', 'correo_verificado'],
+  Usuario: ['nombre', 'apellido', 'username', 'password', 'rol', 'email', 'telefono', 'correo_verificado', 'verificacion_activa'],
   Empleado: ['id_usuario', 'es_mecanico', 'es_interno'],
   Tipo_Especialidad: ['tipo_especialidad'],
   Especialidad: ['id_empleado', 'id_tipo_especialidad'],

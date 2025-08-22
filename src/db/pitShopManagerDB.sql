@@ -16,6 +16,7 @@ CREATE TABLE Usuario (
     email VARCHAR(150),
     telefono VARCHAR(50),
     correo_verificado BOOLEAN,
+    verificacion_activa BOOLEAN,
     FOREIGN KEY (rol) REFERENCES Rol(id)
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;

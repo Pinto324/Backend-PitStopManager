@@ -1,5 +1,5 @@
 class Usuario {
-  constructor(id, nombre, apellido, username, password, rol, email, telefono, correo_verificado) {
+  constructor(id, nombre, apellido, username, password, rol, email, telefono, correo_verificado, verificacion_activa) {
     this.id = id;
     this.rol = rol;
     this.nombre = nombre;
@@ -9,6 +9,7 @@ class Usuario {
     this.email = email;
     this.telefono = telefono;
     this.correo_verificado = correo_verificado;
+    this.verificacion_activa = verificacion_activa
   }
 }
 
