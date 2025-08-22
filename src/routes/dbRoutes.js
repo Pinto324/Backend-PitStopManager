@@ -231,6 +231,9 @@ router.delete("/rol/:id", RolController.deleteById.bind(RolController));
  *                   correo_verificado:
  *                     type: boolean
  *                     example: true
+ *                   verificacion_activa:
+ *                     type: boolean
+ *                     example: true
  *       500:
  *         description: Error interno del servidor
  */
@@ -331,6 +334,9 @@ router.get("/usuario/:id", UsuarioController.getByID.bind(UsuarioController));
  *                 type: string
  *                 example: "+50212345678"
  *               correo_verificado:
+ *                 type: boolean
+ *                 example: true
+ *               verificacion_activa:
  *                 type: boolean
  *                 example: true
  *     responses:
