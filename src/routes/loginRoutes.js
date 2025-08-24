@@ -35,7 +35,7 @@ const authenticateToken = require('../security/authMiddleware');
  *                 example: "Secr3to!"
  *     responses:
  *       200:
- *         description: Usuario autenticado exitosamente
+ *         description: Usuario autenticado exitosamente y no tiene autenticación de 2 pasos
  *         headers:
  *           Authorization:
  *             description: Token JWT para autenticación
@@ -52,16 +52,37 @@ const authenticateToken = require('../security/authMiddleware');
  *                   properties:
  *                     _id:
  *                       type: string
- *                       example: "64ef29b82f9b7c1a2f9d4a11"
+ *                       example: "1"
  *                     username:
  *                       type: string
  *                       example: "usuario123"
- *                     correo:
- *                       type: string
- *                       example: "usuario@mail.com"
  *                     rol:
  *                       type: string
  *                       example: "Administrador"
+ *       301:
+ *         description: Falta la verificación del correo del usuario para poder ingresar
+ *         headers:
+ *           Authorization:
+ *             description: Token JWT para autenticación
+ *             schema:
+ *               type: string
+ *               example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Verifique el correo para poder ingersar"
+ *       302:
+ *         description: Cambiar a factor de 2 pasos para poder ingresar el código mandado al correo
+ *         headers:
+ *           Authorization:
+ *             description: Token JWT para autenticación
+ *             schema:
+ *               type: string
+ *               example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Cambiar a factor de 2 pasos"
  *       401:
  *         description: Credenciales inválidas o correo no verificado
  *         content:
@@ -95,7 +116,7 @@ router.post("/", LoginController.login);
  *             properties:
  *               usuarioId:
  *                 type: string
- *                 example: "64ef29b82f9b7c1a2f9d4a11"
+ *                 example: "1"
  *               codigo:
  *                 type: string
  *                 example: "845123"
@@ -133,7 +154,67 @@ router.post("/", LoginController.login);
  *               message: "Error al verificar código"
  *               error: "Database connection error"
  */
-router.post("/verificar", LoginController.verificarCodigo);
+router.post("/verificar", LoginController.verificarCodigoRegistro);
+/**
+ * @swagger
+ * /login/autenticacion:
+ *   post:
+ *     summary: Verifica el código enviado al correo al momento de logear para los usuarios con factor de 2 pasos (requiere token JWT)
+ *     description: Comprueba que el código de verificación sea válido y no haya expirado.
+ *     tags: [Autenticación]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - usuarioId
+ *               - codigo
+ *             properties:
+ *               usuarioId:
+ *                 type: string
+ *                 example: "1"
+ *               codigo:
+ *                 type: string
+ *                 example: "845123"
+ *     responses:
+ *       200:
+ *         description: Código verificado exitosamente
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: true
+ *               message: "✅ Codigo de autenticación correcto"
+ *               verificado: true
+ *       400:
+ *         description: Código inválido o datos incompletos
+ *         content:
+ *           application/json:
+ *             examples:
+ *               datosIncompletos:
+ *                 summary: Datos incompletos
+ *                 value:
+ *                   success: false
+ *                   message: "❌ Datos incompletos. Se requiere usuarioId y codigo"
+ *               codigoInvalido:
+ *                 summary: Código inválido o expirado
+ *                 value:
+ *                   success: false
+ *                   message: "❌ Código inválido o expirado"
+ *                   verificado: false
+ *       500:
+ *         description: Error interno al verificar código
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Error al verificar código"
+ *               error: "Database connection error"
+ */
+router.post("/autenticacion", authenticateToken, LoginController.verificarCodigoAutenticacion);
 /**
  * @swagger
  * /login:

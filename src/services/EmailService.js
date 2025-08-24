@@ -49,6 +49,36 @@ class EmailService {
             throw error;
         }
     }
+        async enviarEmailAutenticacion(email, codigo, nombreUsuario) {
+        try {
+            const mailOptions = {
+                from: "branps18@gmail.com",
+                to: email,
+                subject: 'Verificación de dos pasos - PitShop Manager',
+                html: `
+                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                        <h2 style="color: #333;">Autenticación de cuenta</h2>
+                        <p>Hola ${nombreUsuario},</p>
+                        <p>Te enviamos el código para autenticar tu logeo a PitShop Manager. Tu código de autenticación es:</p>
+                        <div style="background-color: #f0f0f0; padding: 20px; text-align: center; margin: 20px 0;">
+                            <h1 style="color: #007bff; margin: 0; font-size: 32px;">${codigo}</h1>
+                        </div>
+                        <p>Este código expirará en 1 hora.</p>
+                        <p>Si no solicitaste este código, por favor ignora este email.</p>
+                        <br>
+                        <p>Saludos,<br>Equipo de PitShop Manager</p>
+                    </div>
+                `
+            };
+
+            await this.transporter.sendMail(mailOptions);
+            console.log(`✅ Email de autenticación enviado a: ${email}`);
+            return true;
+        } catch (error) {
+            console.error('❌ Error enviando email:', error);
+            throw error;
+        }
+    }
 }
 
 module.exports = new EmailService();

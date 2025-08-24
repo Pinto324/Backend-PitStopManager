@@ -26,21 +26,42 @@ class CodigoVerificacionService {
             throw error;
         }
     }
+    async GenerarCodigoAutenticacion(idUsuario) {
+        try {
+            const EmailService = require('./EmailService');
+            const codigo = EmailService.generarCodigoVerificacion();
 
-    async verificarCodigo(idUsuario, codigoIngresado) {
+            // Preparar los datos en el orden exacto de fieldsArray
+            const data = {
+                id_usuario: idUsuario,
+                codigo: codigo,
+                fecha: new Date().toISOString().split('T')[0], // YYYY-MM-DD
+                hora: new Date().toTimeString().split(' ')[0], // HH:MM:SS
+                booleaan: 1,
+                alerta: 0   
+            };
+
+            // Insertar en la tabla Codigo_verificacion
+            const insertedId = await Model.create('Codigo_verificacion', data);
+            return codigo;
+
+        } catch (error) {
+            console.error('Error creando código de verificación:', error.message);
+            throw error;
+        }
+    }
+    async verificarCodigo(idUsuario, codigoIngresado, EsAutenticacion) {
         try {
             const pool = require('../config/db');
             const query = `
                 SELECT * FROM Codigo_verificacion 
                 WHERE id_usuario = ? AND codigo = ? 
-                AND booleaan = 0 
+                AND booleaan = ?
                 AND fecha = CURDATE()
                 ORDER BY id DESC LIMIT 1
             `;
 
-            console.log(`🔍 Verificando código para usuario ${idUsuario}: ${codigoIngresado}`);
-
-            const [rows] = await pool.query(query, [idUsuario, codigoIngresado]);
+            const [rows] = await pool.query(query, [idUsuario, codigoIngresado, EsAutenticacion]);
 
             if (rows.length > 0) {
                 console.log(`✅ Código válido encontrado: ${rows[0].id}`);
@@ -68,6 +89,7 @@ class CodigoVerificacionService {
             throw error;
         }
     }
+    
 }
 
 module.exports = new CodigoVerificacionService();
