@@ -15,7 +15,7 @@ class LoginController {
             const rol = await RolService.getById(usuario.rol);
             usuario.rol = rol;
             const token = jwt.sign(
-                { id: usuario._id, username: usuario.username, rol: usuario.rol },
+                { id: usuario.id, username: usuario.username, rol: usuario.rol },
                 SECRET_KEY,
                 { expiresIn: '1h' }
             );

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const LoginController = require("../controllers/LoginController");
 const authenticateToken = require('../security/authMiddleware');
+const authorize = require('../security/authorize');
 
 /**
  * @swagger
@@ -242,7 +243,7 @@ router.post("/autenticacion", authenticateToken, LoginController.verificarCodigo
  *             example:
  *               message: "Token no proporcionado o inválido"
  */
-router.get('/', authenticateToken, (req, res) => {
+router.get('/', authenticateToken, authorize('Proveedor'), (req, res) => {
     res.json({ message: 'Acceso concedido a ruta protegida', user: req.user });
 });
 module.exports = router;
