@@ -13,7 +13,7 @@ const authorize = require('../security/authorize');
 
 /**
  * @swagger
- * /login:
+ * /api/login:
  *   post:
  *     summary: Inicia sesión de un usuario
  *     description: Valida credenciales y retorna un JWT en el header `Authorization`. El correo debe estar previamente verificado.
@@ -30,10 +30,10 @@ const authorize = require('../security/authorize');
  *             properties:
  *               username:
  *                 type: string
- *                 example: "usuario123"
+ *                 example: "prueba5"
  *               password:
  *                 type: string
- *                 example: "Secr3to!"
+ *                 example: "1"
  *     responses:
  *       200:
  *         description: Usuario autenticado exitosamente y no tiene autenticación de 2 pasos
@@ -51,15 +51,21 @@ const authorize = require('../security/authorize');
  *                 usuario:
  *                   type: object
  *                   properties:
- *                     _id:
+ *                     id:
  *                       type: string
  *                       example: "1"
  *                     username:
  *                       type: string
  *                       example: "usuario123"
  *                     rol:
- *                       type: string
- *                       example: "Administrador"
+ *                       type: object
+ *                       properties:
+ *                          id:
+ *                              type: int
+ *                              example: "1"
+ *                          rol:
+ *                              type: string
+ *                              example: "Administrador"
  *       301:
  *         description: Falta la verificación del correo del usuario para poder ingresar
  *         headers:
@@ -100,7 +106,7 @@ const authorize = require('../security/authorize');
 router.post("/", LoginController.login);
 /**
  * @swagger
- * /login/verificar:
+ * /api/login/verificar:
  *   post:
  *     summary: Verifica el código enviado al correo del usuario
  *     description: Comprueba que el código de verificación sea válido y no haya expirado.
@@ -158,7 +164,7 @@ router.post("/", LoginController.login);
 router.post("/verificar", LoginController.verificarCodigoRegistro);
 /**
  * @swagger
- * /login/autenticacion:
+ * /api/login/autenticacion:
  *   post:
  *     summary: Verifica el código enviado al correo al momento de logear para los usuarios con factor de 2 pasos (requiere token JWT)
  *     description: Comprueba que el código de verificación sea válido y no haya expirado.
@@ -218,7 +224,7 @@ router.post("/verificar", LoginController.verificarCodigoRegistro);
 router.post("/autenticacion", authenticateToken, LoginController.verificarCodigoAutenticacion);
 /**
  * @swagger
- * /login:
+ * /api/login:
  *   get:
  *     summary: Ruta protegida (requiere token JWT)
  *     description: Accede a esta ruta únicamente con un token válido generado en el login.
@@ -243,7 +249,7 @@ router.post("/autenticacion", authenticateToken, LoginController.verificarCodigo
  *             example:
  *               message: "Token no proporcionado o inválido"
  */
-router.get('/', authenticateToken, authorize('Proveedor'), (req, res) => {
+router.get('/', authenticateToken, authorize(['Proveedor']), (req, res) => {
     res.json({ message: 'Acceso concedido a ruta protegida', user: req.user });
 });
 module.exports = router;
