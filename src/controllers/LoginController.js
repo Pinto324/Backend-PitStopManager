@@ -23,16 +23,16 @@ class LoginController {
             if (!usuario.correo_verificado) {
                 return res.status(301).json({ message: "Verifique el correo para poder ingersar" });
             } else if (usuario.verificacion_activa) {
-                        try {
-                          const codigo = await CodigoVerificacionService.GenerarCodigoAutenticacion(usuario._id);
-                          await EmailService.enviarEmailAutenticacion(
-                            usuario.email,
-                            codigo,
-                            usuario.nombre || usuario.username || 'Usuario'
-                          );                
-                        } catch (emailError) {
-                          console.error('⚠️ Error enviando email (usuario creado):', emailError.message);
-                        }
+                try {
+                    const codigo = await CodigoVerificacionService.GenerarCodigoAutenticacion(usuario.id);
+                    await EmailService.enviarEmailAutenticacion(
+                        usuario.email,
+                        codigo,
+                        usuario.nombre || usuario.username || 'Usuario'
+                    );
+                } catch (emailError) {
+                    console.error('⚠️ Error enviando email (usuario creado):', emailError.message);
+                }
                 return res.status(302).json({ message: "Cambiar a factor de 2 pasos" });
             }
             res.status(200).json({ usuario });
