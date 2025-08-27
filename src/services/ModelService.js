@@ -60,6 +60,11 @@ class ModelService {
         return await Model.getAllByParameters(this.table, columns, values);
     }
 
+    async executeQuery(query) {
+        console.log(query);
+        return await Model.executeSelect(query);
+    }
+
     async getObject(data) {
         switch (this.table) {
             case 'Rol':

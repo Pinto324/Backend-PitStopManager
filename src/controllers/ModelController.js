@@ -31,7 +31,7 @@ const fieldsArray = {
   Reporte: ['id_empleado_orden_reparacion', 'id_tipo_reporte', 'observaciones', 'solucionado', 'fecha', 'hora'],
   Codigo_verificacion: ['id_usuario', 'codigo', 'fecha', 'hora', 'booleaan', 'alerta'],
   Recibo: ['id_pedido', 'fecha', 'total']
-  
+
 };
 
 class Model {
@@ -98,27 +98,26 @@ class Model {
   static async getAllByParameters(table, columns, values) {
     try {
       let text = "";
-      console.log('Table: '+table, 'columna:'+columns, 'values:'+ values)
       for (let index = 0; index < columns.length; index++) {
         text += `${columns[index]} = ? `;
         if (index !== columns.length - 1) {
           text += "AND ";
         }
       }
-      console.log ('Ejecutando text:') 
+      console.log('Ejecutando text:')
       const query = `SELECT * FROM ${table} WHERE ${text}`;
       console.log("Ejecutando query:", query);
-  
+
       const [rows] = await pool.query(query, values);
-  
+
       return rows; // 👈 ahora sí devuelve resultados reales
     } catch (err) {
       console.error("Error in getAllByParameters:", err.message);
       throw err;
     }
-  }  
+  }
 
-    static async updateById(table, id, data, columnName) {
+  static async updateById(table, id, data, columnName) {
     try {
       const query = `UPDATE ${table} SET ${columnName} = ? WHERE id = ?`;
       const values = [data, id];
@@ -129,7 +128,7 @@ class Model {
       throw err;
     }
   }
-  
+
   static async findByCredentials(username, password) {
     try {
       const query = `
@@ -142,6 +141,16 @@ class Model {
       return rows[0] || null;
     } catch (err) {
       console.error('Error in findByCredentials:', err.message);
+      throw err;
+    }
+  }
+
+  static async executeSelect(query, params = []) {
+    try {
+      const [rows] = await pool.query(query, params);
+      return rows;
+    } catch (err) {
+      console.error("Error en executeSelect:", err);
       throw err;
     }
   }
