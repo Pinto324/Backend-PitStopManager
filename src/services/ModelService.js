@@ -56,6 +56,10 @@ class ModelService {
         return await Model.deleteById(this.table, id);
     }
 
+    async getAllByParameters(columns, values) {
+        return await Model.getAllByParameters(this.table, columns, values);
+    }
+
     async getObject(data) {
         switch (this.table) {
             case 'Rol':

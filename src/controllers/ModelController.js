@@ -1,4 +1,3 @@
-// controllers/ModelController.js
 const pool = require('../config/db');
 
 const fieldsArray = {
@@ -95,6 +94,42 @@ class Model {
       throw err;
     }
   }
+
+  static async getAllByParameters(table, columns, values) {
+    try {
+      let text = "";
+      console.log('Table: '+table, 'columna:'+columns, 'values:'+ values)
+      for (let index = 0; index < columns.length; index++) {
+        text += `${columns[index]} = ? `;
+        if (index !== columns.length - 1) {
+          text += "AND ";
+        }
+      }
+      console.log ('Ejecutando text:') 
+      const query = `SELECT * FROM ${table} WHERE ${text}`;
+      console.log("Ejecutando query:", query);
+  
+      const [rows] = await pool.query(query, values);
+  
+      return rows; // 👈 ahora sí devuelve resultados reales
+    } catch (err) {
+      console.error("Error in getAllByParameters:", err.message);
+      throw err;
+    }
+  }  
+
+    static async updateById(table, id, data, columnName) {
+    try {
+      const query = `UPDATE ${table} SET ${columnName} = ? WHERE id = ?`;
+      const values = [data, id];
+      const [result] = await pool.query(query, values);
+      return result;
+    } catch (err) {
+      console.error('Error in updateById:', err.message);
+      throw err;
+    }
+  }
+  
   static async findByCredentials(username, password) {
     try {
       const query = `

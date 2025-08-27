@@ -135,6 +135,26 @@ class MasterController {
         }
     }
 
+    async getByID(req, res) {
+        try {
+            const { id } = req.params;
+            const data = await this.getByIDTable(id);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al encontrar a "+this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+    }
+
+    async getAllByParameters(req, res) {
+        try {
+            const { columns, values } = req.body;
+            const data = await this.getAllByParametersTable(columns, values);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al encontrar a "+this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+    }
+
     async getAllTable() {
         switch (this.table) {
             case 'Rol':
@@ -465,6 +485,73 @@ class MasterController {
                 return await Codigo_verificacionService.delete(id);
             case 'Recibo':
                 return await ReciboService.delete(id);
+            default:
+                throw new Error(`Tabla ${this.table} no soportada`);
+        }
+    }
+
+    async getAllByParametersTable(columns, values) {
+        switch (this.table) {
+            case 'Rol':
+                return await RolService.getAllByParameters(columns, values);
+            case 'Usuario':
+                return await UsuarioService.getAllByParameters(columns, values);
+            case 'Empleado':
+                return await EmpleadoService.getAllByParameters(columns, values);
+            case 'Tipo_Especialidad':
+                return await Tipo_EspecialidadService.getAllByParameters(columns, values);
+            case 'Especialidad':
+                return await EspecialidadService.getAllByParameters(columns, values);
+            case 'Vehiculo':
+                return await VehiculoService.getAllByParameters(columns, values);
+            case 'Proveedor':
+                return await ProveedorService.getAllByParameters(columns, values);
+            case 'Repuesto':
+                return await RepuestoService.getAllByParameters(columns, values);
+            case 'Proveedor_Repuesto':
+                return await Proveedor_RepuestoService.getAllByParameters(columns, values);
+            case 'Estado_Pedido':
+                return await Estado_PedidoService.getAllByParameters(columns, values);
+            case 'Pedido':
+                return await PedidoService.getAllByParameters(columns, values);
+            case 'Estado_Pedido_Detalle':
+                return await Estado_Pedido_DetalleService.getAllByParameters(columns, values);
+            case 'Pedido_Detalle':
+                return await Pedido_DetalleService.getAllByParameters(columns, values);
+            case 'Inventario':
+                return await InventarioService.getAllByParameters(columns, values);
+            case 'Estado_Orden_Reparacion':
+                return await Estado_Orden_ReparacionService.getAllByParameters(columns, values);
+            case 'Orden_Reparacion':
+                return await Orden_ReparacionService.getAllByParameters(columns, values);
+            case 'Servicio':
+                return await ServicioService.getAllByParameters(columns, values);
+            case 'Estado_Trabajo':
+                return await Estado_TrabajoService.getAllByParameters(columns, values);
+            case 'Servicio_Orden_Reparacion':
+                return await Servicio_Orden_ReparacionService.getAllByParameters(columns, values);
+            case 'Inventario_Orden_Reparacion':
+                return await Inventario_Orden_ReparacionService.getAllByParameters(columns, values);
+            case 'Factura':
+                return await FacturaService.getAllByParameters(columns, values);
+            case 'Pago':
+                return await PagoService.getAllByParameters(columns, values);
+            case 'Chat_Usuario':
+                return await Chat_UsuarioService.getAllByParameters(columns, values);
+            case 'Tipo_Notificacion':
+                return await Tipo_NotificacionService.getAllByParameters(columns, values);
+            case 'Notificacion':
+                return await NotificacionService.getAllByParameters(columns, values);
+            case 'Empleado_Orden_Reparacion':
+                return await Empleado_Orden_ReparacionService.getAllByParameters(columns, values);
+            case 'TipoReporte':
+                return await TipoReporteService.getAllByParameters(columns, values);
+            case 'Reporte':
+                return await ReporteService.getAllByParameters(columns, values);
+            case 'Codigo_verificacion':
+                return await Codigo_verificacionService.getAllByParameters(columns, values);
+            case 'Recibo':
+                return await ReciboService.getAllByParameters(columns, values);
             default:
                 throw new Error(`Tabla ${this.table} no soportada`);
         }
