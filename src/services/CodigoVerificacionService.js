@@ -1,7 +1,11 @@
 // services/CodigoVerificacionService.js
 const Model = require('../controllers/ModelController');
+const ModelService = require("./ModelService");
 
-class CodigoVerificacionService {
+class CodigoVerificacionService extends ModelService {
+    constructor() {
+        super('Codigo_verificacion');
+      }
     async crearCodigoVerificacion(idUsuario) {
         try {
             const EmailService = require('./EmailService');

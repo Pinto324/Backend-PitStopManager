@@ -1634,33 +1634,49 @@ router.get("/ordenreparacion/:id", OrdenReparacionController.getByID.bind(OrdenR
  * @swagger
  * /ordenreparacion:
  *   post:
- *     summary: Crea una orden de reparación
+ *     summary: Crea una nueva orden de reparación
  *     tags: [OrdenReparacion]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
+ *             type: object
  *             properties:
- *               id_vehiculo: { type: integer, example: 1 }
- *               fecha_ingreso: { type: string, format: date, example: "2025-02-01" }
- *               hora_ingreso: { type: string, format: time, example: "08:30:00" }
- *               fecha_egreso: { type: string, format: date, example: "2025-02-05" }
- *               hora_egreso: { type: string, format: time, example: "14:00:00" }
- *               estado: { type: integer, example: 2 }
+ *               id_vehiculo:
+ *                 type: integer
+ *                 example: 1
+ *               fecha_ingreso:
+ *                 type: string
+ *                 format: date
+ *                 example: "2025-08-30"
+ *               hora_ingreso:
+ *                 type: string
+ *                 format: time
+ *                 example: "10:00:00"
  *     responses:
  *       201:
- *         description: Orden creada
+ *         description: Orden de reparación creada exitosamente
  *         content:
  *           application/json:
  *             example:
+ *               message: "Registro insertado correctamente a OrdenReparacion"
  *               id: 5
  *               id_vehiculo: 1
- *               fecha_ingreso: "2025-02-01"
- *               hora_ingreso: "08:30:00"
- *               fecha_egreso: "2025-02-05"
- *               hora_egreso: "14:00:00"
- *               estado: 2
+ *               fecha_ingreso: "2025-08-30"
+ *               hora_ingreso: "10:00:00"
+ *               fecha_egreso: "2025-08-30"
+ *               hora_egreso: "10:00:00"
+ *               estado: 1
+ *       500:
+ *         description: Error al crear la orden de reparación
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Error al insertar registro a OrdenReparacion"
+ *               name: "Error"
+ *               code: "unknown"
+ *               errorMessage: "Error al consultar base de datos"
  */
 
 router.post("/ordenreparacion", OrdenReparacionController.insertToDB.bind(OrdenReparacionController));
@@ -2055,20 +2071,37 @@ router.get("/servicioordenreparacion/:id", ServicioOrdenReparacionController.get
  *       content:
  *         application/json:
  *           schema:
+ *             type: object
  *             properties:
- *               id_orden_reparacion: { type: integer, example: 1 }
- *               id_servicio: { type: integer, example: 2 }
- *               id_estado_trabajo: { type: integer, example: 1 }
+ *               id_orden_reparacion:
+ *                 type: integer
+ *                 example: 1
+ *               id_servicio:
+ *                 type: integer
+ *                 example: 2
  *     responses:
  *       201:
- *         description: Servicio por orden creado
+ *         description: Servicio por orden creado correctamente
  *         content:
  *           application/json:
- *             example:
- *               id: 3
- *               id_orden_reparacion: 2
- *               id_servicio: 1
- *               id_estado_trabajo: 2
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Registro insertado correctamente a ServicioOrdenReparacion"
+ *                 id:
+ *                   type: integer
+ *                   example: 3
+ *                 id_orden_reparacion:
+ *                   type: integer
+ *                   example: 2
+ *                 id_servicio:
+ *                   type: integer
+ *                   example: 1
+ *                 id_estado_trabajo:
+ *                   type: integer
+ *                   example: 2
  */
 
 router.post("/servicioordenreparacion", ServicioOrdenReparacionController.insertToDB.bind(ServicioOrdenReparacionController));
