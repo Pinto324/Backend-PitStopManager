@@ -30,6 +30,8 @@ const TipoReporteController = require("../controllers/TipoReporteController");
 const ReporteController = require("../controllers/ReporteController");
 const CodigoVerificacionController = require("../controllers/CodigoVerificacionController");
 const ReciboController = require("../controllers/ReciboController");
+const authenticateToken = require('../security/authMiddleware');
+const authorize = require('../security/authorize');
 
 
 // Rol Routes
@@ -2954,23 +2956,27 @@ router.get("/reporte/:id", ReporteController.getByID.bind(ReporteController));
 
 /**
  * @swagger
- * /reporte:
+ * api/reporte:
  *   post:
- *     summary: Crea un reporte
+ *     summary: Crea un reporte.
+ *     description: Crea un reporte de parte del empleado sobre un trabajo, este va hacia el admin para su revisión y manejo.
  *     tags: [Reporte]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
+ *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             properties:
  *               id_empleado_orden_reparacion: { type: integer, example: 1 }
- *               id_tipo_reporte: { type: integer, example: 2 }
+ *               id_tipo_reporte: {type: integer, example: 2, description: ID del tipo de reporte, 1 solicitar apoyo de un especialista, 2 reportar daños adicionales}
  *               observaciones: { type: string, example: "Revisión general" }
  *               solucionado: { type: boolean, example: false }
  *               fecha: { type: string, format: date, example: "2025-02-21" }
  *               hora: { type: string, format: time, example: "14:30:00" }
  */
-router.post("/reporte", ReporteController.insertToDB.bind(ReporteController));
+router.post("/reporte", authenticateToken, authorize(['Empleado']),ReporteController.insertToDB.bind(ReporteController));
 
 /**
  * @swagger
