@@ -166,11 +166,9 @@ router.post("/verificar", LoginController.verificarCodigoRegistro);
  * @swagger
  * /api/login/autenticacion:
  *   post:
- *     summary: Verifica el código enviado al correo al momento de logear para los usuarios con factor de 2 pasos (requiere token JWT)
+ *     summary: Verifica el código enviado al correo
  *     description: Comprueba que el código de verificación sea válido y no haya expirado.
  *     tags: [Autenticación]
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -223,7 +221,6 @@ router.post("/verificar", LoginController.verificarCodigoRegistro);
  */
 router.post(
   "/autenticacion",
-  authenticateToken,
   LoginController.verificarCodigoAutenticacion
 );
 /**

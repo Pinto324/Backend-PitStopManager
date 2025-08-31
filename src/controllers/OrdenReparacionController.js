@@ -10,12 +10,12 @@ class OrdenReparacionController extends MasterController {
     async insertToDB(req, res) {
         try {
             const data = req.body;
-            jsonData = {
+            const jsonData = {
                 id_vehiculo: data.id_vehiculo,
                 fecha_ingreso: data.fecha_ingreso,
                 hora_ingreso: data.hora_ingreso,
-                fecha_egreso: data.fecha_ingreso,
-                hora_egreso: data.hora_ingreso,
+                fecha_egreso: null,
+                hora_egreso: null,
                 estado: 1
             }
             // Insertar Registro
