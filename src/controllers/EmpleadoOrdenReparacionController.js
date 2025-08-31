@@ -11,7 +11,10 @@ class EmpleadoOrdenReparacionController extends MasterController {
         try {
             const data = req.body;
             //verifica si el empleado está libre
-            if (await EmpleadoOrdenReparacionService.verifyEmpleadoLibre(data.id_empleado)) {
+            let ordenReparacion = await OrdenReparacionService.getById(id);
+            let fechaHoraInicio = ordenReparacion[0].fecha_ingreso +' '+ordenReparacion[0].hora_ingreso 
+            let fechaHoraFin = ordenReparacion[0].fecha_egreso +' '+ordenReparacion[0].hora_egreso
+            if (await EmpleadoOrdenReparacionService.verifyEmpleadoLibre(data.id_empleado, fechaHoraInicio, fechaHoraFin)) {
                 jsonData = {
                     id_empleado: data.id_empleado,
                     id_orden_reparacion: data.id_orden_reparacion,

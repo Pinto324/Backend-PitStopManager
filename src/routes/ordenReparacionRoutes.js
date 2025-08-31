@@ -4,7 +4,7 @@ const OrdenReparacionController = require("../controllers/OrdenReparacionControl
 
 /**
  * @swagger
- * /vehiculo/idVehiculo/{idVehiculo}:
+ * /ordenreparacion/idVehiculo/{idVehiculo}:
  *   get:
  *     summary: Obtiene las órdenes de reparación asociadas a un vehículo por su ID
  *     tags: [OrdenReparacion]
@@ -64,7 +64,7 @@ const OrdenReparacionController = require("../controllers/OrdenReparacionControl
 
 /**
  * @swagger
- * /vehiculo/placas/{placas}:
+ * /ordenreparacion/placas/{placas}:
  *   get:
  *     summary: Obtiene las órdenes de reparación asociadas a un vehículo por su número de placas
  *     tags: [OrdenReparacion]
@@ -122,7 +122,55 @@ const OrdenReparacionController = require("../controllers/OrdenReparacionControl
  *               errorMessage: "Error al consultar base de datos"
  */
 
+/**
+ * @swagger
+ * /ordenreparacion/estado/{estado}:
+ *   get:
+ *     summary: Obtener órdenes de reparación por estado
+ *     description: Retorna todas las órdenes de reparación que tengan el estado especificado.
+ *     tags: 
+ *       - OrdenReparacion
+ *     parameters:
+ *       - in: path
+ *         name: estado
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Estado de la orden de reparación (ej. "Pendiente", "En Proceso", "Finalizada").
+ *     responses:
+ *       200:
+ *         description: Lista de órdenes de reparación con el estado indicado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 12
+ *                   cliente:
+ *                     type: string
+ *                     example: "Juan Pérez"
+ *                   vehiculo:
+ *                     type: string
+ *                     example: "Toyota Corolla 2020"
+ *                   fecha_ingreso:
+ *                     type: string
+ *                     format: date
+ *                     example: "2025-08-30"
+ *                   hora_ingreso:
+ *                     type: string
+ *                     example: "08:30:00"
+ *                   estado:
+ *                     type: string
+ *                     example: "Pendiente"
+ *       500:
+ *         description: Error al encontrar órdenes de reparación por estado.
+ */
 
 router.get("/ordenreparacion/idVehiculo/:idVehiculo", OrdenReparacionController.getByIDVehiculo.bind(OrdenReparacionController));
 router.get("/ordenreparacion/placas/:placas", OrdenReparacionController.getByPlacaVehiculo.bind(OrdenReparacionController));
+router.get("/ordenreparacion/estado/:estado", OrdenReparacionController.getByEstado.bind(OrdenReparacionController));
 module.exports = router;

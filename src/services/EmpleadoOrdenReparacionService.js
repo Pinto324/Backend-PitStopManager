@@ -30,7 +30,7 @@ class EmpleadoOrdenReparacionService extends ModelService {
 
   }
 
-  async verifyEmpleadoLibre(fechaHoraInicio, fechaHoraFin) {
+  async verifyEmpleadoLibre(idEmpleado,fechaHoraInicio, fechaHoraFin) {
 
     try {
       let empleadoLibre = true;

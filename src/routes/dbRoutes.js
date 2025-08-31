@@ -1676,7 +1676,7 @@ router.get("/ordenreparacion/:id", OrdenReparacionController.getByID.bind(OrdenR
  *               message: "Error al insertar registro a OrdenReparacion"
  *               name: "Error"
  *               code: "unknown"
- *               errorMessage: "Error al consultar base de datos"
+ *               errorMessage: "Error al consultar base de dffatos"
  */
 
 router.post("/ordenreparacion", OrdenReparacionController.insertToDB.bind(OrdenReparacionController));
@@ -2840,7 +2840,6 @@ router.get("/empleadoordenreparacion/:id", EmpleadoOrdenReparacionController.get
  *             properties:
  *               id_empleado: { type: integer, example: 1 }
  *               id_orden_reparacion: { type: integer, example: 2 }
- *               es_especialista: { type: boolean, example: true }
  */
 router.post("/empleadoordenreparacion", EmpleadoOrdenReparacionController.insertToDB.bind(EmpleadoOrdenReparacionController));
 

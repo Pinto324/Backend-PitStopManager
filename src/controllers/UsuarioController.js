@@ -2,6 +2,7 @@
 const MasterController = require('./MasterController');
 const EmailService = require('../services/EmailService');
 const CodigoVerificacionService = require('../services/CodigoVerificacionService');
+const UsuarioService = require('../services/UsuarioService'); 
 const cripto = require('../security/cripto');
 
 class UsuarioController extends MasterController {
@@ -57,6 +58,17 @@ class UsuarioController extends MasterController {
       });
     }
   }
+
+  async getClientes(req, res) {
+    try {
+        let colums = ["rol"];
+        let values = [2];
+        let data = await UsuarioService.getAllByParameters(colums, values);
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json({ message: "Error al encontrar Clientes"+this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+    }
+}
 }
 
 module.exports = new UsuarioController();

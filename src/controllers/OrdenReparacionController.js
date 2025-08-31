@@ -64,6 +64,18 @@ class OrdenReparacionController extends MasterController {
         }
     }
 
+    async getByEstado(req, res) {
+        try {
+            const { estado } = req.params;
+            let colums = ["estado"];
+            let values = [estado];
+            let data = await OrdenReparacionService.getAllByParameters(colums, values);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al encontrar ordenes de reparación por Estado" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+    }
+
 }
 
 module.exports = new OrdenReparacionController();
