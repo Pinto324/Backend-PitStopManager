@@ -4,7 +4,7 @@ const RolService = require("../services/RolService");
 const CodigoVerificacionService = require('../services/CodigoVerificacionService');
 const EmailService = require('../services/EmailService');
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = 'Pitstop';
+const SECRET_KEY = process.env.SECRET_KEY;
 class LoginController {
     async login(req, res) {
         try {
