@@ -81,10 +81,13 @@ async verificarCodigo(idUsuario, codigoIngresado, EsAutenticacion) {
             console.log(`✅ Código válido encontrado: ${rows[0].id}`);
             
             // 1. Actualizar usuario como verificado
-            await connection.query(
+            if (!EsAutenticacion) { 
+                await connection.query(
                 'UPDATE Usuario SET correo_verificado = true WHERE id = ?',
                 [idUsuario]
-            );
+                );
+            }
+
 
             // 2. Eliminar el código de verificación
             await connection.query(
