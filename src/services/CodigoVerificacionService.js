@@ -1,7 +1,7 @@
 // services/CodigoVerificacionService.js
 const Model = require('../controllers/ModelController');
 const ModelService = require('./ModelService');
-
+const { format } = require('date-fns');
 class CodigoVerificacionService extends ModelService {
     
   constructor() {
@@ -31,30 +31,33 @@ class CodigoVerificacionService extends ModelService {
             throw error;
         }
     }
-    async GenerarCodigoAutenticacion(idUsuario) {
-        try {
-            const EmailService = require('./EmailService');
-            const codigo = EmailService.generarCodigoVerificacion();
+async GenerarCodigoAutenticacion(idUsuario) {
+    try {
+        const EmailService = require('./EmailService');
+        const codigo = EmailService.generarCodigoVerificacion();
 
-            // Preparar los datos en el orden exacto de fieldsArray
-            const data = {
-                id_usuario: idUsuario,
-                codigo: codigo,
-                fecha: new Date().toISOString().split('T')[0], // YYYY-MM-DD
-                hora: new Date().toTimeString().split(' ')[0], // HH:MM:SS
-                booleaan: 1,
-                alerta: 0   
-            };
+        const now = new Date();
+        
+        const fecha = format(now, 'yyyy-MM-dd');
+        const hora = format(now, 'HH:mm:ss');
 
-            // Insertar en la tabla Codigo_verificacion
-            const insertedId = await Model.create('Codigo_verificacion', data);
-            return codigo;
+        const data = {
+            id_usuario: idUsuario,
+            codigo: codigo,
+            fecha: fecha,
+            hora: hora,
+            booleaan: 1,
+            alerta: 0   
+        };
 
-        } catch (error) {
-            console.error('Error creando código de verificación:', error.message);
-            throw error;
-        }
+        const insertedId = await Model.create('Codigo_verificacion', data);
+        return codigo;
+
+    } catch (error) {
+        console.error('Error creando código de verificación:', error.message);
+        throw error;
     }
+}
 async verificarCodigo(idUsuario, codigoIngresado, EsAutenticacion) {
     let connection;
     try {
