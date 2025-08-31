@@ -30,9 +30,8 @@ const TipoReporteController = require("../controllers/TipoReporteController");
 const ReporteController = require("../controllers/ReporteController");
 const CodigoVerificacionController = require("../controllers/CodigoVerificacionController");
 const ReciboController = require("../controllers/ReciboController");
-const authenticateToken = require('../security/authMiddleware');
-const authorize = require('../security/authorize');
-
+const authenticateToken = require("../security/authMiddleware");
+const authorize = require("../security/authorize");
 
 // Rol Routes
 /**
@@ -185,7 +184,6 @@ router.put("/rol/:id", RolController.updateById.bind(RolController));
  *         description: Error interno del servidor
  */
 router.delete("/rol/:id", RolController.deleteById.bind(RolController));
-
 
 // Usuario Routes
 
@@ -386,7 +384,10 @@ router.post("/usuario", UsuarioController.insertToDB.bind(UsuarioController));
  *       500:
  *         description: Error interno del servidor
  */
-router.put("/usuario/:id", UsuarioController.updateById.bind(UsuarioController));
+router.put(
+  "/usuario/:id",
+  UsuarioController.updateById.bind(UsuarioController)
+);
 
 /**
  * @swagger
@@ -410,7 +411,10 @@ router.put("/usuario/:id", UsuarioController.updateById.bind(UsuarioController))
  *       500:
  *         description: Error interno del servidor
  */
-router.delete("/usuario/:id", UsuarioController.deleteById.bind(UsuarioController));
+router.delete(
+  "/usuario/:id",
+  UsuarioController.deleteById.bind(UsuarioController)
+);
 
 /**
  * @swagger
@@ -485,7 +489,10 @@ router.get("/empleado", EmpleadoController.getAll.bind(EmpleadoController));
  *       500:
  *         description: Error interno del servidor
  */
-router.get("/empleado/:id", EmpleadoController.getByID.bind(EmpleadoController));
+router.get(
+  "/empleado/:id",
+  EmpleadoController.getByID.bind(EmpleadoController)
+);
 
 /**
  * @swagger
@@ -518,7 +525,10 @@ router.get("/empleado/:id", EmpleadoController.getByID.bind(EmpleadoController))
  *       500:
  *         description: Error interno del servidor
  */
-router.post("/empleado", EmpleadoController.insertToDB.bind(EmpleadoController));
+router.post(
+  "/empleado",
+  EmpleadoController.insertToDB.bind(EmpleadoController)
+);
 
 /**
  * @swagger
@@ -555,7 +565,10 @@ router.post("/empleado", EmpleadoController.insertToDB.bind(EmpleadoController))
  *       500:
  *         description: Error interno del servidor
  */
-router.put("/empleado/:id", EmpleadoController.updateById.bind(EmpleadoController));
+router.put(
+  "/empleado/:id",
+  EmpleadoController.updateById.bind(EmpleadoController)
+);
 
 /**
  * @swagger
@@ -579,7 +592,10 @@ router.put("/empleado/:id", EmpleadoController.updateById.bind(EmpleadoControlle
  *       500:
  *         description: Error interno del servidor
  */
-router.delete("/empleado/:id", EmpleadoController.deleteById.bind(EmpleadoController));
+router.delete(
+  "/empleado/:id",
+  EmpleadoController.deleteById.bind(EmpleadoController)
+);
 
 // ============================ TIPO ESPECIALIDAD ROUTES ============================
 /**
@@ -598,7 +614,10 @@ router.delete("/empleado/:id", EmpleadoController.deleteById.bind(EmpleadoContro
  *               - id: 2
  *                 tipo_especialidad: "Electricidad"
  */
-router.get("/tipoespecialidad", TipoEspecialidadController.getAll.bind(TipoEspecialidadController));
+router.get(
+  "/tipoespecialidad",
+  TipoEspecialidadController.getAll.bind(TipoEspecialidadController)
+);
 
 /**
  * @swagger
@@ -614,7 +633,10 @@ router.get("/tipoespecialidad", TipoEspecialidadController.getAll.bind(TipoEspec
  *               id: 2
  *               tipo_especialidad: "Transmisión"
  */
-router.get("/tipoespecialidad/:id", TipoEspecialidadController.getByID.bind(TipoEspecialidadController));
+router.get(
+  "/tipoespecialidad/:id",
+  TipoEspecialidadController.getByID.bind(TipoEspecialidadController)
+);
 
 /**
  * @swagger
@@ -630,7 +652,10 @@ router.get("/tipoespecialidad/:id", TipoEspecialidadController.getByID.bind(Tipo
  *             properties:
  *               tipo_especialidad: { type: string, example: "Frenos" }
  */
-router.post("/tipoespecialidad", TipoEspecialidadController.insertToDB.bind(TipoEspecialidadController));
+router.post(
+  "/tipoespecialidad",
+  TipoEspecialidadController.insertToDB.bind(TipoEspecialidadController)
+);
 
 /**
  * @swagger
@@ -645,7 +670,10 @@ router.post("/tipoespecialidad", TipoEspecialidadController.insertToDB.bind(Tipo
  *             columnName: tipo_especialidad
  *             value: "Motor"
  */
-router.put("/tipoespecialidad/:id", TipoEspecialidadController.updateById.bind(TipoEspecialidadController));
+router.put(
+  "/tipoespecialidad/:id",
+  TipoEspecialidadController.updateById.bind(TipoEspecialidadController)
+);
 
 /**
  * @swagger
@@ -654,8 +682,10 @@ router.put("/tipoespecialidad/:id", TipoEspecialidadController.updateById.bind(T
  *     summary: Elimina un tipo de especialidad
  *     tags: [TipoEspecialidad]
  */
-router.delete("/tipoespecialidad/:id", TipoEspecialidadController.deleteById.bind(TipoEspecialidadController));
-
+router.delete(
+  "/tipoespecialidad/:id",
+  TipoEspecialidadController.deleteById.bind(TipoEspecialidadController)
+);
 
 // ============================ ESPECIALIDAD ROUTES ============================
 /**
@@ -673,7 +703,10 @@ router.delete("/tipoespecialidad/:id", TipoEspecialidadController.deleteById.bin
  *                 id_empleado: 2
  *                 id_tipo_especialidad: 1
  */
-router.get("/especialidad", EspecialidadController.getAll.bind(EspecialidadController));
+router.get(
+  "/especialidad",
+  EspecialidadController.getAll.bind(EspecialidadController)
+);
 
 /**
  * @swagger
@@ -690,7 +723,10 @@ router.get("/especialidad", EspecialidadController.getAll.bind(EspecialidadContr
  *               id_empleado: 5
  *               id_tipo_especialidad: 2
  */
-router.get("/especialidad/:id", EspecialidadController.getByID.bind(EspecialidadController));
+router.get(
+  "/especialidad/:id",
+  EspecialidadController.getByID.bind(EspecialidadController)
+);
 
 /**
  * @swagger
@@ -706,7 +742,10 @@ router.get("/especialidad/:id", EspecialidadController.getByID.bind(Especialidad
  *               id_empleado: { type: integer, example: 1 }
  *               id_tipo_especialidad: { type: integer, example: 2 }
  */
-router.post("/especialidad", EspecialidadController.insertToDB.bind(EspecialidadController));
+router.post(
+  "/especialidad",
+  EspecialidadController.insertToDB.bind(EspecialidadController)
+);
 
 /**
  * @swagger
@@ -721,7 +760,10 @@ router.post("/especialidad", EspecialidadController.insertToDB.bind(Especialidad
  *             columnName: id_tipo_especialidad
  *             value: 3
  */
-router.put("/especialidad/:id", EspecialidadController.updateById.bind(EspecialidadController));
+router.put(
+  "/especialidad/:id",
+  EspecialidadController.updateById.bind(EspecialidadController)
+);
 
 /**
  * @swagger
@@ -730,8 +772,10 @@ router.put("/especialidad/:id", EspecialidadController.updateById.bind(Especiali
  *     summary: Elimina una especialidad
  *     tags: [Especialidad]
  */
-router.delete("/especialidad/:id", EspecialidadController.deleteById.bind(EspecialidadController));
-
+router.delete(
+  "/especialidad/:id",
+  EspecialidadController.deleteById.bind(EspecialidadController)
+);
 
 // ============================ VEHICULO ROUTES ============================
 /**
@@ -770,7 +814,10 @@ router.get("/vehiculo", VehiculoController.getAll.bind(VehiculoController));
  *               modelo: "Civic"
  *               placas: "P456ABC"
  */
-router.get("/vehiculo/:id", VehiculoController.getByID.bind(VehiculoController));
+router.get(
+  "/vehiculo/:id",
+  VehiculoController.getByID.bind(VehiculoController)
+);
 
 /**
  * @swagger
@@ -788,7 +835,10 @@ router.get("/vehiculo/:id", VehiculoController.getByID.bind(VehiculoController))
  *               modelo: { type: string, example: "Corolla" }
  *               placas: { type: string, example: "P123XYZ" }
  */
-router.post("/vehiculo", VehiculoController.insertToDB.bind(VehiculoController));
+router.post(
+  "/vehiculo",
+  VehiculoController.insertToDB.bind(VehiculoController)
+);
 
 /**
  * @swagger
@@ -803,7 +853,10 @@ router.post("/vehiculo", VehiculoController.insertToDB.bind(VehiculoController))
  *             columnName: modelo
  *             value: "Rav4"
  */
-router.put("/vehiculo/:id", VehiculoController.updateById.bind(VehiculoController));
+router.put(
+  "/vehiculo/:id",
+  VehiculoController.updateById.bind(VehiculoController)
+);
 
 /**
  * @swagger
@@ -812,8 +865,10 @@ router.put("/vehiculo/:id", VehiculoController.updateById.bind(VehiculoControlle
  *     summary: Elimina un vehículo
  *     tags: [Vehiculo]
  */
-router.delete("/vehiculo/:id", VehiculoController.deleteById.bind(VehiculoController));
-
+router.delete(
+  "/vehiculo/:id",
+  VehiculoController.deleteById.bind(VehiculoController)
+);
 
 // ============================ PROVEEDOR ROUTES ============================
 /**
@@ -852,7 +907,10 @@ router.get("/proveedor", ProveedorController.getAll.bind(ProveedorController));
  *               es_servicio: true
  *               descripcion: "Taller especializado en transmisión"
  */
-router.get("/proveedor/:id", ProveedorController.getByID.bind(ProveedorController));
+router.get(
+  "/proveedor/:id",
+  ProveedorController.getByID.bind(ProveedorController)
+);
 
 /**
  * @swagger
@@ -870,7 +928,10 @@ router.get("/proveedor/:id", ProveedorController.getByID.bind(ProveedorControlle
  *               es_servicio: { type: boolean, example: false }
  *               descripcion: { type: string, example: "Proveedor de repuestos" }
  */
-router.post("/proveedor", ProveedorController.insertToDB.bind(ProveedorController));
+router.post(
+  "/proveedor",
+  ProveedorController.insertToDB.bind(ProveedorController)
+);
 
 /**
  * @swagger
@@ -885,7 +946,10 @@ router.post("/proveedor", ProveedorController.insertToDB.bind(ProveedorControlle
  *             columnName: descripcion
  *             value: "Distribuidor autorizado de repuestos originales"
  */
-router.put("/proveedor/:id", ProveedorController.updateById.bind(ProveedorController));
+router.put(
+  "/proveedor/:id",
+  ProveedorController.updateById.bind(ProveedorController)
+);
 
 /**
  * @swagger
@@ -894,8 +958,10 @@ router.put("/proveedor/:id", ProveedorController.updateById.bind(ProveedorContro
  *     summary: Elimina un proveedor
  *     tags: [Proveedor]
  */
-router.delete("/proveedor/:id", ProveedorController.deleteById.bind(ProveedorController));
-
+router.delete(
+  "/proveedor/:id",
+  ProveedorController.deleteById.bind(ProveedorController)
+);
 
 // ============================ REPUESTO ROUTES ============================
 /**
@@ -930,7 +996,10 @@ router.get("/repuesto", RepuestoController.getAll.bind(RepuestoController));
  *               id: 3
  *               nombre_repuesto: "Amortiguador"
  */
-router.get("/repuesto/:id", RepuestoController.getByID.bind(RepuestoController));
+router.get(
+  "/repuesto/:id",
+  RepuestoController.getByID.bind(RepuestoController)
+);
 
 /**
  * @swagger
@@ -945,7 +1014,10 @@ router.get("/repuesto/:id", RepuestoController.getByID.bind(RepuestoController))
  *             properties:
  *               nombre_repuesto: { type: string, example: "Filtro de aire" }
  */
-router.post("/repuesto", RepuestoController.insertToDB.bind(RepuestoController));
+router.post(
+  "/repuesto",
+  RepuestoController.insertToDB.bind(RepuestoController)
+);
 
 /**
  * @swagger
@@ -960,7 +1032,10 @@ router.post("/repuesto", RepuestoController.insertToDB.bind(RepuestoController))
  *             columnName: nombre_repuesto
  *             value: "Pastilla de freno"
  */
-router.put("/repuesto/:id", RepuestoController.updateById.bind(RepuestoController));
+router.put(
+  "/repuesto/:id",
+  RepuestoController.updateById.bind(RepuestoController)
+);
 
 /**
  * @swagger
@@ -969,8 +1044,10 @@ router.put("/repuesto/:id", RepuestoController.updateById.bind(RepuestoControlle
  *     summary: Elimina un repuesto
  *     tags: [Repuesto]
  */
-router.delete("/repuesto/:id", RepuestoController.deleteById.bind(RepuestoController));
-
+router.delete(
+  "/repuesto/:id",
+  RepuestoController.deleteById.bind(RepuestoController)
+);
 
 // ============================ PROVEEDOR REPUESTO ROUTES ============================
 /**
@@ -989,7 +1066,10 @@ router.delete("/repuesto/:id", RepuestoController.deleteById.bind(RepuestoContro
  *                 id_repuesto: 3
  *                 precio: 250.75
  */
-router.get("/proveedorrepuesto", ProveedorRepuestoController.getAll.bind(ProveedorRepuestoController));
+router.get(
+  "/proveedorrepuesto",
+  ProveedorRepuestoController.getAll.bind(ProveedorRepuestoController)
+);
 
 /**
  * @swagger
@@ -1007,7 +1087,10 @@ router.get("/proveedorrepuesto", ProveedorRepuestoController.getAll.bind(Proveed
  *               id_repuesto: 4
  *               precio: 150.50
  */
-router.get("/proveedorrepuesto/:id", ProveedorRepuestoController.getByID.bind(ProveedorRepuestoController));
+router.get(
+  "/proveedorrepuesto/:id",
+  ProveedorRepuestoController.getByID.bind(ProveedorRepuestoController)
+);
 
 /**
  * @swagger
@@ -1024,7 +1107,10 @@ router.get("/proveedorrepuesto/:id", ProveedorRepuestoController.getByID.bind(Pr
  *               id_repuesto: { type: integer, example: 2 }
  *               precio: { type: number, example: 150.50 }
  */
-router.post("/proveedorrepuesto", ProveedorRepuestoController.insertToDB.bind(ProveedorRepuestoController));
+router.post(
+  "/proveedorrepuesto",
+  ProveedorRepuestoController.insertToDB.bind(ProveedorRepuestoController)
+);
 
 /**
  * @swagger
@@ -1039,7 +1125,10 @@ router.post("/proveedorrepuesto", ProveedorRepuestoController.insertToDB.bind(Pr
  *             columnName: precio
  *             value: 175.00
  */
-router.put("/proveedorrepuesto/:id", ProveedorRepuestoController.updateById.bind(ProveedorRepuestoController));
+router.put(
+  "/proveedorrepuesto/:id",
+  ProveedorRepuestoController.updateById.bind(ProveedorRepuestoController)
+);
 
 /**
  * @swagger
@@ -1048,7 +1137,10 @@ router.put("/proveedorrepuesto/:id", ProveedorRepuestoController.updateById.bind
  *     summary: Elimina un proveedor-repuesto
  *     tags: [ProveedorRepuesto]
  */
-router.delete("/proveedorrepuesto/:id", ProveedorRepuestoController.deleteById.bind(ProveedorRepuestoController));
+router.delete(
+  "/proveedorrepuesto/:id",
+  ProveedorRepuestoController.deleteById.bind(ProveedorRepuestoController)
+);
 // ============================ ESTADO PEDIDO ROUTES ============================
 /**
  * @swagger
@@ -1066,7 +1158,10 @@ router.delete("/proveedorrepuesto/:id", ProveedorRepuestoController.deleteById.b
  *               - id: 2
  *                 estado: "En camino"
  */
-router.get("/estadopedido", EstadoPedidoController.getAll.bind(EstadoPedidoController));
+router.get(
+  "/estadopedido",
+  EstadoPedidoController.getAll.bind(EstadoPedidoController)
+);
 
 /**
  * @swagger
@@ -1082,7 +1177,10 @@ router.get("/estadopedido", EstadoPedidoController.getAll.bind(EstadoPedidoContr
  *               id: 2
  *               estado: "Entregado"
  */
-router.get("/estadopedido/:id", EstadoPedidoController.getByID.bind(EstadoPedidoController));
+router.get(
+  "/estadopedido/:id",
+  EstadoPedidoController.getByID.bind(EstadoPedidoController)
+);
 
 /**
  * @swagger
@@ -1097,7 +1195,10 @@ router.get("/estadopedido/:id", EstadoPedidoController.getByID.bind(EstadoPedido
  *             properties:
  *               estado: { type: string, example: "Pendiente" }
  */
-router.post("/estadopedido", EstadoPedidoController.insertToDB.bind(EstadoPedidoController));
+router.post(
+  "/estadopedido",
+  EstadoPedidoController.insertToDB.bind(EstadoPedidoController)
+);
 
 /**
  * @swagger
@@ -1112,7 +1213,10 @@ router.post("/estadopedido", EstadoPedidoController.insertToDB.bind(EstadoPedido
  *             columnName: estado
  *             value: "Cancelado"
  */
-router.put("/estadopedido/:id", EstadoPedidoController.updateById.bind(EstadoPedidoController));
+router.put(
+  "/estadopedido/:id",
+  EstadoPedidoController.updateById.bind(EstadoPedidoController)
+);
 
 /**
  * @swagger
@@ -1121,8 +1225,10 @@ router.put("/estadopedido/:id", EstadoPedidoController.updateById.bind(EstadoPed
  *     summary: Elimina un estado de pedido
  *     tags: [EstadoPedido]
  */
-router.delete("/estadopedido/:id", EstadoPedidoController.deleteById.bind(EstadoPedidoController));
-
+router.delete(
+  "/estadopedido/:id",
+  EstadoPedidoController.deleteById.bind(EstadoPedidoController)
+);
 
 // ============================ PEDIDO ROUTES ============================
 /**
@@ -1204,8 +1310,10 @@ router.put("/pedido/:id", PedidoController.updateById.bind(PedidoController));
  *     summary: Elimina un pedido
  *     tags: [Pedido]
  */
-router.delete("/pedido/:id", PedidoController.deleteById.bind(PedidoController));
-
+router.delete(
+  "/pedido/:id",
+  PedidoController.deleteById.bind(PedidoController)
+);
 
 // ============================ ESTADO PEDIDO DETALLE ROUTES ============================
 /**
@@ -1224,7 +1332,10 @@ router.delete("/pedido/:id", PedidoController.deleteById.bind(PedidoController))
  *               - id: 2
  *                 estado: "Aprobado"
  */
-router.get("/estadopedidodetalle", EstadoPedidoDetalleController.getAll.bind(EstadoPedidoDetalleController));
+router.get(
+  "/estadopedidodetalle",
+  EstadoPedidoDetalleController.getAll.bind(EstadoPedidoDetalleController)
+);
 
 /**
  * @swagger
@@ -1240,7 +1351,10 @@ router.get("/estadopedidodetalle", EstadoPedidoDetalleController.getAll.bind(Est
  *               id: 2
  *               estado: "Rechazado"
  */
-router.get("/estadopedidodetalle/:id", EstadoPedidoDetalleController.getByID.bind(EstadoPedidoDetalleController));
+router.get(
+  "/estadopedidodetalle/:id",
+  EstadoPedidoDetalleController.getByID.bind(EstadoPedidoDetalleController)
+);
 
 /**
  * @swagger
@@ -1255,7 +1369,10 @@ router.get("/estadopedidodetalle/:id", EstadoPedidoDetalleController.getByID.bin
  *             properties:
  *               estado: { type: string, example: "En proceso" }
  */
-router.post("/estadopedidodetalle", EstadoPedidoDetalleController.insertToDB.bind(EstadoPedidoDetalleController));
+router.post(
+  "/estadopedidodetalle",
+  EstadoPedidoDetalleController.insertToDB.bind(EstadoPedidoDetalleController)
+);
 
 /**
  * @swagger
@@ -1270,7 +1387,10 @@ router.post("/estadopedidodetalle", EstadoPedidoDetalleController.insertToDB.bin
  *             columnName: estado
  *             value: "Completado"
  */
-router.put("/estadopedidodetalle/:id", EstadoPedidoDetalleController.updateById.bind(EstadoPedidoDetalleController));
+router.put(
+  "/estadopedidodetalle/:id",
+  EstadoPedidoDetalleController.updateById.bind(EstadoPedidoDetalleController)
+);
 
 /**
  * @swagger
@@ -1279,8 +1399,10 @@ router.put("/estadopedidodetalle/:id", EstadoPedidoDetalleController.updateById.
  *     summary: Elimina un estado de detalle de pedido
  *     tags: [EstadoPedidoDetalle]
  */
-router.delete("/estadopedidodetalle/:id", EstadoPedidoDetalleController.deleteById.bind(EstadoPedidoDetalleController));
-
+router.delete(
+  "/estadopedidodetalle/:id",
+  EstadoPedidoDetalleController.deleteById.bind(EstadoPedidoDetalleController)
+);
 
 // ============================ PEDIDO DETALLE ROUTES ============================
 /**
@@ -1305,7 +1427,10 @@ router.delete("/estadopedidodetalle/:id", EstadoPedidoDetalleController.deleteBy
  *                 estado: 2
  *                 cantidad_solicitada: 10
  */
-router.get("/pedidodetalle", PedidoDetalleController.getAll.bind(PedidoDetalleController));
+router.get(
+  "/pedidodetalle",
+  PedidoDetalleController.getAll.bind(PedidoDetalleController)
+);
 
 /**
  * @swagger
@@ -1324,7 +1449,10 @@ router.get("/pedidodetalle", PedidoDetalleController.getAll.bind(PedidoDetalleCo
  *               estado: 1
  *               cantidad_solicitada: 8
  */
-router.get("/pedidodetalle/:id", PedidoDetalleController.getByID.bind(PedidoDetalleController));
+router.get(
+  "/pedidodetalle/:id",
+  PedidoDetalleController.getByID.bind(PedidoDetalleController)
+);
 
 /**
  * @swagger
@@ -1342,7 +1470,10 @@ router.get("/pedidodetalle/:id", PedidoDetalleController.getByID.bind(PedidoDeta
  *               estado: { type: integer, example: 1 }
  *               cantidad_solicitada: { type: integer, example: 5 }
  */
-router.post("/pedidodetalle", PedidoDetalleController.insertToDB.bind(PedidoDetalleController));
+router.post(
+  "/pedidodetalle",
+  PedidoDetalleController.insertToDB.bind(PedidoDetalleController)
+);
 
 /**
  * @swagger
@@ -1357,7 +1488,10 @@ router.post("/pedidodetalle", PedidoDetalleController.insertToDB.bind(PedidoDeta
  *             columnName: cantidad_solicitada
  *             value: 12
  */
-router.put("/pedidodetalle/:id", PedidoDetalleController.updateById.bind(PedidoDetalleController));
+router.put(
+  "/pedidodetalle/:id",
+  PedidoDetalleController.updateById.bind(PedidoDetalleController)
+);
 
 /**
  * @swagger
@@ -1366,8 +1500,10 @@ router.put("/pedidodetalle/:id", PedidoDetalleController.updateById.bind(PedidoD
  *     summary: Elimina un detalle de pedido
  *     tags: [PedidoDetalle]
  */
-router.delete("/pedidodetalle/:id", PedidoDetalleController.deleteById.bind(PedidoDetalleController));
-
+router.delete(
+  "/pedidodetalle/:id",
+  PedidoDetalleController.deleteById.bind(PedidoDetalleController)
+);
 
 // ============================ INVENTARIO ROUTES ============================
 /**
@@ -1390,7 +1526,10 @@ router.delete("/pedidodetalle/:id", PedidoDetalleController.deleteById.bind(Pedi
  *                 cantidad: 15
  *                 precio_unitario: 210.00
  */
-router.get("/inventario", InventarioController.getAll.bind(InventarioController));
+router.get(
+  "/inventario",
+  InventarioController.getAll.bind(InventarioController)
+);
 
 /**
  * @swagger
@@ -1408,7 +1547,10 @@ router.get("/inventario", InventarioController.getAll.bind(InventarioController)
  *               cantidad: 50
  *               precio_unitario: 95.75
  */
-router.get("/inventario/:id", InventarioController.getByID.bind(InventarioController));
+router.get(
+  "/inventario/:id",
+  InventarioController.getByID.bind(InventarioController)
+);
 
 /**
  * @swagger
@@ -1425,7 +1567,10 @@ router.get("/inventario/:id", InventarioController.getByID.bind(InventarioContro
  *               cantidad: { type: integer, example: 20 }
  *               precio_unitario: { type: number, example: 125.50 }
  */
-router.post("/inventario", InventarioController.insertToDB.bind(InventarioController));
+router.post(
+  "/inventario",
+  InventarioController.insertToDB.bind(InventarioController)
+);
 
 /**
  * @swagger
@@ -1440,7 +1585,10 @@ router.post("/inventario", InventarioController.insertToDB.bind(InventarioContro
  *             columnName: cantidad
  *             value: 30
  */
-router.put("/inventario/:id", InventarioController.updateById.bind(InventarioController));
+router.put(
+  "/inventario/:id",
+  InventarioController.updateById.bind(InventarioController)
+);
 
 /**
  * @swagger
@@ -1449,7 +1597,10 @@ router.put("/inventario/:id", InventarioController.updateById.bind(InventarioCon
  *     summary: Elimina un registro de inventario
  *     tags: [Inventario]
  */
-router.delete("/inventario/:id", InventarioController.deleteById.bind(InventarioController));
+router.delete(
+  "/inventario/:id",
+  InventarioController.deleteById.bind(InventarioController)
+);
 
 // ============================ ESTADO ORDEN REPARACION ROUTES ============================
 // ============================ ESTADO ORDEN REPARACION ROUTES ============================
@@ -1466,13 +1617,20 @@ router.delete("/inventario/:id", InventarioController.deleteById.bind(Inventario
  *           application/json:
  *             example:
  *               - id: 1
- *                 estado: "Pendiente"
+ *                 estado: "Pendiente Aprobación del Cliente"
  *               - id: 2
- *                 estado: "En reparación"
+ *                 estado: "Cotización Cancelada"
  *               - id: 3
- *                 estado: "Finalizado"
+ *                 estado: "Aprobado por el Cliente"
+ *               - id: 4
+ *                 estado: "En curso"
+ *               - id: 5
+ *                 estado: "Completado"
  */
-router.get("/estadoordenreparacion", EstadoOrdenReparacionController.getAll.bind(EstadoOrdenReparacionController));
+router.get(
+  "/estadoordenreparacion",
+  EstadoOrdenReparacionController.getAll.bind(EstadoOrdenReparacionController)
+);
 
 /**
  * @swagger
@@ -1497,7 +1655,10 @@ router.get("/estadoordenreparacion", EstadoOrdenReparacionController.getAll.bind
  *               estado: "En reparación"
  */
 
-router.get("/estadoordenreparacion/:id", EstadoOrdenReparacionController.getByID.bind(EstadoOrdenReparacionController));
+router.get(
+  "/estadoordenreparacion/:id",
+  EstadoOrdenReparacionController.getByID.bind(EstadoOrdenReparacionController)
+);
 
 /**
  * @swagger
@@ -1521,7 +1682,12 @@ router.get("/estadoordenreparacion/:id", EstadoOrdenReparacionController.getByID
  *               id: 4
  *               estado: "Pendiente"
  */
-router.post("/estadoordenreparacion", EstadoOrdenReparacionController.insertToDB.bind(EstadoOrdenReparacionController));
+router.post(
+  "/estadoordenreparacion",
+  EstadoOrdenReparacionController.insertToDB.bind(
+    EstadoOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -1553,7 +1719,12 @@ router.post("/estadoordenreparacion", EstadoOrdenReparacionController.insertToDB
  *               id: 2
  *               estado: "Finalizado"
  */
-router.put("/estadoordenreparacion/:id", EstadoOrdenReparacionController.updateById.bind(EstadoOrdenReparacionController));
+router.put(
+  "/estadoordenreparacion/:id",
+  EstadoOrdenReparacionController.updateById.bind(
+    EstadoOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -1575,8 +1746,13 @@ router.put("/estadoordenreparacion/:id", EstadoOrdenReparacionController.updateB
  *           application/json:
  *             example:
  *               message: "Estado eliminado correctamente"
-*/
-router.delete("/estadoordenreparacion/:id", EstadoOrdenReparacionController.deleteById.bind(EstadoOrdenReparacionController));
+ */
+router.delete(
+  "/estadoordenreparacion/:id",
+  EstadoOrdenReparacionController.deleteById.bind(
+    EstadoOrdenReparacionController
+  )
+);
 
 // ============================ ORDEN REPARACION ROUTES ============================
 /**
@@ -1599,7 +1775,10 @@ router.delete("/estadoordenreparacion/:id", EstadoOrdenReparacionController.dele
  *                 hora_egreso: "14:00:00"
  *                 estado: 2
  */
-router.get("/ordenreparacion", OrdenReparacionController.getAll.bind(OrdenReparacionController));
+router.get(
+  "/ordenreparacion",
+  OrdenReparacionController.getAll.bind(OrdenReparacionController)
+);
 
 /**
  * @swagger
@@ -1628,7 +1807,10 @@ router.get("/ordenreparacion", OrdenReparacionController.getAll.bind(OrdenRepara
  *               hora_egreso: "14:00:00"
  *               estado: 2
  */
-router.get("/ordenreparacion/:id", OrdenReparacionController.getByID.bind(OrdenReparacionController));
+router.get(
+  "/ordenreparacion/:id",
+  OrdenReparacionController.getByID.bind(OrdenReparacionController)
+);
 
 /**
  * @swagger
@@ -1679,7 +1861,10 @@ router.get("/ordenreparacion/:id", OrdenReparacionController.getByID.bind(OrdenR
  *               errorMessage: "Error al consultar base de datos"
  */
 
-router.post("/ordenreparacion", OrdenReparacionController.insertToDB.bind(OrdenReparacionController));
+router.post(
+  "/ordenreparacion",
+  OrdenReparacionController.insertToDB.bind(OrdenReparacionController)
+);
 
 /**
  * @swagger
@@ -1712,7 +1897,10 @@ router.post("/ordenreparacion", OrdenReparacionController.insertToDB.bind(OrdenR
  *               estado: 3
  */
 
-router.put("/ordenreparacion/:id", OrdenReparacionController.updateById.bind(OrdenReparacionController));
+router.put(
+  "/ordenreparacion/:id",
+  OrdenReparacionController.updateById.bind(OrdenReparacionController)
+);
 
 /**
  * @swagger
@@ -1736,7 +1924,10 @@ router.put("/ordenreparacion/:id", OrdenReparacionController.updateById.bind(Ord
  *               message: "Orden eliminada correctamente"
  */
 
-router.delete("/ordenreparacion/:id", OrdenReparacionController.deleteById.bind(OrdenReparacionController));
+router.delete(
+  "/ordenreparacion/:id",
+  OrdenReparacionController.deleteById.bind(OrdenReparacionController)
+);
 
 // ============================ SERVICIO ROUTES ============================
 /**
@@ -1793,7 +1984,10 @@ router.get("/servicio", ServicioController.getAll.bind(ServicioController));
  *               precio: 450.00
  */
 
-router.get("/servicio/:id", ServicioController.getByID.bind(ServicioController));
+router.get(
+  "/servicio/:id",
+  ServicioController.getByID.bind(ServicioController)
+);
 
 /**
  * @swagger
@@ -1825,7 +2019,10 @@ router.get("/servicio/:id", ServicioController.getByID.bind(ServicioController))
  *               tiempo_estimado: 45
  *               precio: 100.00
  */
-router.post("/servicio", ServicioController.insertToDB.bind(ServicioController));
+router.post(
+  "/servicio",
+  ServicioController.insertToDB.bind(ServicioController)
+);
 
 /**
  * @swagger
@@ -1858,8 +2055,10 @@ router.post("/servicio", ServicioController.insertToDB.bind(ServicioController))
  *               descripcion: "Cambio de aceite y filtro completado"
  */
 
-router.put("/servicio/:id", ServicioController.updateById.bind(ServicioController));
-
+router.put(
+  "/servicio/:id",
+  ServicioController.updateById.bind(ServicioController)
+);
 
 /**
  * @swagger
@@ -1881,9 +2080,12 @@ router.put("/servicio/:id", ServicioController.updateById.bind(ServicioControlle
  *           application/json:
  *             example:
  *               message: "Servicio eliminado correctamente"
-*/
+ */
 
-router.delete("/servicio/:id", ServicioController.deleteById.bind(ServicioController));
+router.delete(
+  "/servicio/:id",
+  ServicioController.deleteById.bind(ServicioController)
+);
 
 // ============================ ESTADO TRABAJO ROUTES ============================
 /**
@@ -1905,7 +2107,10 @@ router.delete("/servicio/:id", ServicioController.deleteById.bind(ServicioContro
  *               - id: 3
  *                 estado: "Completado"
  */
-router.get("/estadotrabajo", EstadoTrabajoController.getAll.bind(EstadoTrabajoController));
+router.get(
+  "/estadotrabajo",
+  EstadoTrabajoController.getAll.bind(EstadoTrabajoController)
+);
 
 /**
  * @swagger
@@ -1929,7 +2134,10 @@ router.get("/estadotrabajo", EstadoTrabajoController.getAll.bind(EstadoTrabajoCo
  *               id: 3
  *               estado: "Completado"
  */
-router.get("/estadotrabajo/:id", EstadoTrabajoController.getByID.bind(EstadoTrabajoController));
+router.get(
+  "/estadotrabajo/:id",
+  EstadoTrabajoController.getByID.bind(EstadoTrabajoController)
+);
 
 /**
  * @swagger
@@ -1953,7 +2161,10 @@ router.get("/estadotrabajo/:id", EstadoTrabajoController.getByID.bind(EstadoTrab
  *               id: 4
  *               estado: "En proceso"
  */
-router.post("/estadotrabajo", EstadoTrabajoController.insertToDB.bind(EstadoTrabajoController));
+router.post(
+  "/estadotrabajo",
+  EstadoTrabajoController.insertToDB.bind(EstadoTrabajoController)
+);
 
 /**
  * @swagger
@@ -1986,8 +2197,10 @@ router.post("/estadotrabajo", EstadoTrabajoController.insertToDB.bind(EstadoTrab
  *               estado: "Completado"
  */
 
-router.put("/estadotrabajo/:id", EstadoTrabajoController.updateById.bind(EstadoTrabajoController));
-
+router.put(
+  "/estadotrabajo/:id",
+  EstadoTrabajoController.updateById.bind(EstadoTrabajoController)
+);
 
 /**
  * @swagger
@@ -2009,9 +2222,12 @@ router.put("/estadotrabajo/:id", EstadoTrabajoController.updateById.bind(EstadoT
  *           application/json:
  *             example:
  *               message: "Estado eliminado correctamente"
-*/
+ */
 
-router.delete("/estadotrabajo/:id", EstadoTrabajoController.deleteById.bind(EstadoTrabajoController));
+router.delete(
+  "/estadotrabajo/:id",
+  EstadoTrabajoController.deleteById.bind(EstadoTrabajoController)
+);
 
 // ============================ SERVICIO ORDEN REPARACION ROUTES ============================
 /**
@@ -2031,7 +2247,12 @@ router.delete("/estadotrabajo/:id", EstadoTrabajoController.deleteById.bind(Esta
  *                 id_servicio: 2
  *                 id_estado_trabajo: 3
  */
-router.get("/servicioordenreparacion", ServicioOrdenReparacionController.getAll.bind(ServicioOrdenReparacionController));
+router.get(
+  "/servicioordenreparacion",
+  ServicioOrdenReparacionController.getAll.bind(
+    ServicioOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2058,7 +2279,12 @@ router.get("/servicioordenreparacion", ServicioOrdenReparacionController.getAll.
  *               id_estado_trabajo: 3
  */
 
-router.get("/servicioordenreparacion/:id", ServicioOrdenReparacionController.getByID.bind(ServicioOrdenReparacionController));
+router.get(
+  "/servicioordenreparacion/:id",
+  ServicioOrdenReparacionController.getByID.bind(
+    ServicioOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2104,7 +2330,12 @@ router.get("/servicioordenreparacion/:id", ServicioOrdenReparacionController.get
  *                   example: 2
  */
 
-router.post("/servicioordenreparacion", ServicioOrdenReparacionController.insertToDB.bind(ServicioOrdenReparacionController));
+router.post(
+  "/servicioordenreparacion",
+  ServicioOrdenReparacionController.insertToDB.bind(
+    ServicioOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2137,7 +2368,12 @@ router.post("/servicioordenreparacion", ServicioOrdenReparacionController.insert
  *               id_estado_trabajo: 3
  */
 
-router.put("/servicioordenreparacion/:id", ServicioOrdenReparacionController.updateById.bind(ServicioOrdenReparacionController));
+router.put(
+  "/servicioordenreparacion/:id",
+  ServicioOrdenReparacionController.updateById.bind(
+    ServicioOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2159,8 +2395,13 @@ router.put("/servicioordenreparacion/:id", ServicioOrdenReparacionController.upd
  *           application/json:
  *             example:
  *               message: "Servicio por orden eliminado correctamente"
-*/
-router.delete("/servicioordenreparacion/:id", ServicioOrdenReparacionController.deleteById.bind(ServicioOrdenReparacionController));
+ */
+router.delete(
+  "/servicioordenreparacion/:id",
+  ServicioOrdenReparacionController.deleteById.bind(
+    ServicioOrdenReparacionController
+  )
+);
 
 // ============================ INVENTARIO ORDEN REPARACION ROUTES ============================
 /**
@@ -2180,7 +2421,12 @@ router.delete("/servicioordenreparacion/:id", ServicioOrdenReparacionController.
  *                 id_orden_reparacion: 1
  *                 cantidad: 4
  */
-router.get("/inventarioordenreparacion", InventarioOrdenReparacionController.getAll.bind(InventarioOrdenReparacionController));
+router.get(
+  "/inventarioordenreparacion",
+  InventarioOrdenReparacionController.getAll.bind(
+    InventarioOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2206,7 +2452,12 @@ router.get("/inventarioordenreparacion", InventarioOrdenReparacionController.get
  *               id_orden_reparacion: 1
  *               cantidad: 4
  */
-router.get("/inventarioordenreparacion/:id", InventarioOrdenReparacionController.getByID.bind(InventarioOrdenReparacionController));
+router.get(
+  "/inventarioordenreparacion/:id",
+  InventarioOrdenReparacionController.getByID.bind(
+    InventarioOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2234,7 +2485,12 @@ router.get("/inventarioordenreparacion/:id", InventarioOrdenReparacionController
  *               id_orden_reparacion: 1
  *               cantidad: 5
  */
-router.post("/inventarioordenreparacion", InventarioOrdenReparacionController.insertToDB.bind(InventarioOrdenReparacionController));
+router.post(
+  "/inventarioordenreparacion",
+  InventarioOrdenReparacionController.insertToDB.bind(
+    InventarioOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2266,7 +2522,12 @@ router.post("/inventarioordenreparacion", InventarioOrdenReparacionController.in
  *               id: 1
  *               cantidad: 10
  */
-router.put("/inventarioordenreparacion/:id", InventarioOrdenReparacionController.updateById.bind(InventarioOrdenReparacionController));
+router.put(
+  "/inventarioordenreparacion/:id",
+  InventarioOrdenReparacionController.updateById.bind(
+    InventarioOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2288,8 +2549,13 @@ router.put("/inventarioordenreparacion/:id", InventarioOrdenReparacionController
  *           application/json:
  *             example:
  *               message: "Inventario eliminado correctamente"
-*/
-router.delete("/inventarioordenreparacion/:id", InventarioOrdenReparacionController.deleteById.bind(InventarioOrdenReparacionController));
+ */
+router.delete(
+  "/inventarioordenreparacion/:id",
+  InventarioOrdenReparacionController.deleteById.bind(
+    InventarioOrdenReparacionController
+  )
+);
 
 // ============================ FACTURA ROUTES ============================
 /**
@@ -2395,7 +2661,10 @@ router.post("/factura", FacturaController.insertToDB.bind(FacturaController));
  *               id: 2
  *               total: 900.00
  */
-router.put("/factura/:id", FacturaController.updateById.bind(FacturaController));
+router.put(
+  "/factura/:id",
+  FacturaController.updateById.bind(FacturaController)
+);
 
 /**
  * @swagger
@@ -2417,8 +2686,11 @@ router.put("/factura/:id", FacturaController.updateById.bind(FacturaController))
  *           application/json:
  *             example:
  *               message: "Factura eliminada correctamente"
-*/
-router.delete("/factura/:id", FacturaController.deleteById.bind(FacturaController));
+ */
+router.delete(
+  "/factura/:id",
+  FacturaController.deleteById.bind(FacturaController)
+);
 
 // ============================ PAGO ROUTES ============================
 /**
@@ -2546,7 +2818,7 @@ router.put("/pago/:id", PagoController.updateById.bind(PagoController));
  *           application/json:
  *             example:
  *               message: "Pago eliminado correctamente"
-*/
+ */
 router.delete("/pago/:id", PagoController.deleteById.bind(PagoController));
 
 // ============================ CHAT USUARIO ROUTES ============================
@@ -2567,7 +2839,10 @@ router.delete("/pago/:id", PagoController.deleteById.bind(PagoController));
  *                 mensaje: "El vehículo ya está listo."
  *                 visto: true
  */
-router.get("/chatusuario", ChatUsuarioController.getAll.bind(ChatUsuarioController));
+router.get(
+  "/chatusuario",
+  ChatUsuarioController.getAll.bind(ChatUsuarioController)
+);
 
 /**
  * @swagger
@@ -2590,7 +2865,10 @@ router.get("/chatusuario", ChatUsuarioController.getAll.bind(ChatUsuarioControll
  *               mensaje: "Revisando frenos"
  *               visto: false
  */
-router.get("/chatusuario/:id", ChatUsuarioController.getByID.bind(ChatUsuarioController));
+router.get(
+  "/chatusuario/:id",
+  ChatUsuarioController.getByID.bind(ChatUsuarioController)
+);
 
 /**
  * @swagger
@@ -2607,7 +2885,10 @@ router.get("/chatusuario/:id", ChatUsuarioController.getByID.bind(ChatUsuarioCon
  *               mensaje: { type: string, example: "¿Ya está listo mi carro?" }
  *               visto: { type: boolean, example: false }
  */
-router.post("/chatusuario", ChatUsuarioController.insertToDB.bind(ChatUsuarioController));
+router.post(
+  "/chatusuario",
+  ChatUsuarioController.insertToDB.bind(ChatUsuarioController)
+);
 
 /**
  * @swagger
@@ -2622,7 +2903,10 @@ router.post("/chatusuario", ChatUsuarioController.insertToDB.bind(ChatUsuarioCon
  *             columnName: mensaje
  *             value: "Cambio de aceite terminado"
  */
-router.put("/chatusuario/:id", ChatUsuarioController.updateById.bind(ChatUsuarioController));
+router.put(
+  "/chatusuario/:id",
+  ChatUsuarioController.updateById.bind(ChatUsuarioController)
+);
 
 /**
  * @swagger
@@ -2631,8 +2915,10 @@ router.put("/chatusuario/:id", ChatUsuarioController.updateById.bind(ChatUsuario
  *     summary: Elimina un chat de usuario
  *     tags: [ChatUsuario]
  */
-router.delete("/chatusuario/:id", ChatUsuarioController.deleteById.bind(ChatUsuarioController));
-
+router.delete(
+  "/chatusuario/:id",
+  ChatUsuarioController.deleteById.bind(ChatUsuarioController)
+);
 
 // ============================ TIPO NOTIFICACION ROUTES ============================
 /**
@@ -2649,7 +2935,10 @@ router.delete("/chatusuario/:id", ChatUsuarioController.deleteById.bind(ChatUsua
  *               - id: 1
  *                 tipo_notificacion: "Alerta de pedido"
  */
-router.get("/tiponotificacion", TipoNotificacionController.getAll.bind(TipoNotificacionController));
+router.get(
+  "/tiponotificacion",
+  TipoNotificacionController.getAll.bind(TipoNotificacionController)
+);
 
 /**
  * @swagger
@@ -2665,7 +2954,10 @@ router.get("/tiponotificacion", TipoNotificacionController.getAll.bind(TipoNotif
  *               id: 1
  *               tipo_notificacion: "Recordatorio de servicio"
  */
-router.get("/tiponotificacion/:id", TipoNotificacionController.getByID.bind(TipoNotificacionController));
+router.get(
+  "/tiponotificacion/:id",
+  TipoNotificacionController.getByID.bind(TipoNotificacionController)
+);
 
 /**
  * @swagger
@@ -2680,7 +2972,10 @@ router.get("/tiponotificacion/:id", TipoNotificacionController.getByID.bind(Tipo
  *             properties:
  *               tipo_notificacion: { type: string, example: "Aviso de factura" }
  */
-router.post("/tiponotificacion", TipoNotificacionController.insertToDB.bind(TipoNotificacionController));
+router.post(
+  "/tiponotificacion",
+  TipoNotificacionController.insertToDB.bind(TipoNotificacionController)
+);
 
 /**
  * @swagger
@@ -2695,7 +2990,10 @@ router.post("/tiponotificacion", TipoNotificacionController.insertToDB.bind(Tipo
  *             columnName: tipo_notificacion
  *             value: "Alerta de pago"
  */
-router.put("/tiponotificacion/:id", TipoNotificacionController.updateById.bind(TipoNotificacionController));
+router.put(
+  "/tiponotificacion/:id",
+  TipoNotificacionController.updateById.bind(TipoNotificacionController)
+);
 
 /**
  * @swagger
@@ -2704,7 +3002,10 @@ router.put("/tiponotificacion/:id", TipoNotificacionController.updateById.bind(T
  *     summary: Elimina un tipo de notificación
  *     tags: [TipoNotificacion]
  */
-router.delete("/tiponotificacion/:id", TipoNotificacionController.deleteById.bind(TipoNotificacionController));
+router.delete(
+  "/tiponotificacion/:id",
+  TipoNotificacionController.deleteById.bind(TipoNotificacionController)
+);
 
 // ============================ NOTIFICACION ROUTES ============================
 /**
@@ -2725,7 +3026,10 @@ router.delete("/tiponotificacion/:id", TipoNotificacionController.deleteById.bin
  *                 fecha: "2025-02-20"
  *                 hora: "09:15:00"
  */
-router.get("/notificacion", NotificacionController.getAll.bind(NotificacionController));
+router.get(
+  "/notificacion",
+  NotificacionController.getAll.bind(NotificacionController)
+);
 
 /**
  * @swagger
@@ -2745,7 +3049,10 @@ router.get("/notificacion", NotificacionController.getAll.bind(NotificacionContr
  *               fecha: "2025-02-22"
  *               hora: "15:30:00"
  */
-router.get("/notificacion/:id", NotificacionController.getByID.bind(NotificacionController));
+router.get(
+  "/notificacion/:id",
+  NotificacionController.getByID.bind(NotificacionController)
+);
 
 /**
  * @swagger
@@ -2764,7 +3071,10 @@ router.get("/notificacion/:id", NotificacionController.getByID.bind(Notificacion
  *               fecha: { type: string, format: date, example: "2025-02-18" }
  *               hora: { type: string, format: time, example: "10:45:00" }
  */
-router.post("/notificacion", NotificacionController.insertToDB.bind(NotificacionController));
+router.post(
+  "/notificacion",
+  NotificacionController.insertToDB.bind(NotificacionController)
+);
 
 /**
  * @swagger
@@ -2779,7 +3089,10 @@ router.post("/notificacion", NotificacionController.insertToDB.bind(Notificacion
  *             columnName: comentario
  *             value: "Entrega retrasada por tráfico"
  */
-router.put("/notificacion/:id", NotificacionController.updateById.bind(NotificacionController));
+router.put(
+  "/notificacion/:id",
+  NotificacionController.updateById.bind(NotificacionController)
+);
 
 /**
  * @swagger
@@ -2788,7 +3101,10 @@ router.put("/notificacion/:id", NotificacionController.updateById.bind(Notificac
  *     summary: Elimina una notificación
  *     tags: [Notificacion]
  */
-router.delete("/notificacion/:id", NotificacionController.deleteById.bind(NotificacionController));
+router.delete(
+  "/notificacion/:id",
+  NotificacionController.deleteById.bind(NotificacionController)
+);
 
 // ============================ EMPLEADO ORDEN REPARACION ROUTES ============================
 /**
@@ -2807,7 +3123,12 @@ router.delete("/notificacion/:id", NotificacionController.deleteById.bind(Notifi
  *                 id_orden_reparacion: 3
  *                 es_especialista: true
  */
-router.get("/empleadoordenreparacion", EmpleadoOrdenReparacionController.getAll.bind(EmpleadoOrdenReparacionController));
+router.get(
+  "/empleadoordenreparacion",
+  EmpleadoOrdenReparacionController.getAll.bind(
+    EmpleadoOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2825,7 +3146,12 @@ router.get("/empleadoordenreparacion", EmpleadoOrdenReparacionController.getAll.
  *               id_orden_reparacion: 3
  *               es_especialista: false
  */
-router.get("/empleadoordenreparacion/:id", EmpleadoOrdenReparacionController.getByID.bind(EmpleadoOrdenReparacionController));
+router.get(
+  "/empleadoordenreparacion/:id",
+  EmpleadoOrdenReparacionController.getByID.bind(
+    EmpleadoOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2842,7 +3168,12 @@ router.get("/empleadoordenreparacion/:id", EmpleadoOrdenReparacionController.get
  *               id_orden_reparacion: { type: integer, example: 2 }
  *               es_especialista: { type: boolean, example: true }
  */
-router.post("/empleadoordenreparacion", EmpleadoOrdenReparacionController.insertToDB.bind(EmpleadoOrdenReparacionController));
+router.post(
+  "/empleadoordenreparacion",
+  EmpleadoOrdenReparacionController.insertToDB.bind(
+    EmpleadoOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2857,7 +3188,12 @@ router.post("/empleadoordenreparacion", EmpleadoOrdenReparacionController.insert
  *             columnName: es_especialista
  *             value: true
  */
-router.put("/empleadoordenreparacion/:id", EmpleadoOrdenReparacionController.updateById.bind(EmpleadoOrdenReparacionController));
+router.put(
+  "/empleadoordenreparacion/:id",
+  EmpleadoOrdenReparacionController.updateById.bind(
+    EmpleadoOrdenReparacionController
+  )
+);
 
 /**
  * @swagger
@@ -2866,7 +3202,12 @@ router.put("/empleadoordenreparacion/:id", EmpleadoOrdenReparacionController.upd
  *     summary: Elimina una asignación empleado-orden
  *     tags: [EmpleadoOrdenReparacion]
  */
-router.delete("/empleadoordenreparacion/:id", EmpleadoOrdenReparacionController.deleteById.bind(EmpleadoOrdenReparacionController));
+router.delete(
+  "/empleadoordenreparacion/:id",
+  EmpleadoOrdenReparacionController.deleteById.bind(
+    EmpleadoOrdenReparacionController
+  )
+);
 
 // ============================ TIPO REPORTE ROUTES ============================
 /**
@@ -2884,7 +3225,10 @@ router.delete("/empleadoordenreparacion/:id", EmpleadoOrdenReparacionController.
  *                 tipo_reporte: "Mantenimiento"
  *                 mostrar_mecanico: true
  */
-router.get("/tiporeporte", TipoReporteController.getAll.bind(TipoReporteController));
+router.get(
+  "/tiporeporte",
+  TipoReporteController.getAll.bind(TipoReporteController)
+);
 
 /**
  * @swagger
@@ -2901,7 +3245,10 @@ router.get("/tiporeporte", TipoReporteController.getAll.bind(TipoReporteControll
  *               tipo_reporte: "Reparación urgente"
  *               mostrar_mecanico: false
  */
-router.get("/tiporeporte/:id", TipoReporteController.getByID.bind(TipoReporteController));
+router.get(
+  "/tiporeporte/:id",
+  TipoReporteController.getByID.bind(TipoReporteController)
+);
 
 /**
  * @swagger
@@ -2917,7 +3264,10 @@ router.get("/tiporeporte/:id", TipoReporteController.getByID.bind(TipoReporteCon
  *               tipo_reporte: { type: string, example: "Diagnóstico" }
  *               mostrar_mecanico: { type: boolean, example: true }
  */
-router.post("/tiporeporte", TipoReporteController.insertToDB.bind(TipoReporteController));
+router.post(
+  "/tiporeporte",
+  TipoReporteController.insertToDB.bind(TipoReporteController)
+);
 
 /**
  * @swagger
@@ -2932,7 +3282,10 @@ router.post("/tiporeporte", TipoReporteController.insertToDB.bind(TipoReporteCon
  *             columnName: tipo_reporte
  *             value: "Prueba de ruta"
  */
-router.put("/tiporeporte/:id", TipoReporteController.updateById.bind(TipoReporteController));
+router.put(
+  "/tiporeporte/:id",
+  TipoReporteController.updateById.bind(TipoReporteController)
+);
 
 /**
  * @swagger
@@ -2941,8 +3294,10 @@ router.put("/tiporeporte/:id", TipoReporteController.updateById.bind(TipoReporte
  *     summary: Elimina un tipo de reporte
  *     tags: [TipoReporte]
  */
-router.delete("/tiporeporte/:id", TipoReporteController.deleteById.bind(TipoReporteController));
-
+router.delete(
+  "/tiporeporte/:id",
+  TipoReporteController.deleteById.bind(TipoReporteController)
+);
 
 // ============================ REPORTE ROUTES ============================
 /**
@@ -3009,7 +3364,12 @@ router.get("/reporte/:id", ReporteController.getByID.bind(ReporteController));
  *               fecha: { type: string, format: date, example: "2025-02-21" }
  *               hora: { type: string, format: time, example: "14:30:00" }
  */
-router.post("/reporte", authenticateToken, authorize(['Empleado']),ReporteController.insertToDB.bind(ReporteController));
+router.post(
+  "/reporte",
+  authenticateToken,
+  authorize(["Empleado"]),
+  ReporteController.insertToDB.bind(ReporteController)
+);
 
 /**
  * @swagger
@@ -3024,7 +3384,10 @@ router.post("/reporte", authenticateToken, authorize(['Empleado']),ReporteContro
  *             columnName: solucionado
  *             value: true
  */
-router.put("/reporte/:id", ReporteController.updateById.bind(ReporteController));
+router.put(
+  "/reporte/:id",
+  ReporteController.updateById.bind(ReporteController)
+);
 
 /**
  * @swagger
@@ -3033,8 +3396,10 @@ router.put("/reporte/:id", ReporteController.updateById.bind(ReporteController))
  *     summary: Elimina un reporte
  *     tags: [Reporte]
  */
-router.delete("/reporte/:id", ReporteController.deleteById.bind(ReporteController));
-
+router.delete(
+  "/reporte/:id",
+  ReporteController.deleteById.bind(ReporteController)
+);
 
 // ============================ CODIGO VERIFICACION ROUTES ============================
 /**
@@ -3056,7 +3421,10 @@ router.delete("/reporte/:id", ReporteController.deleteById.bind(ReporteControlle
  *                 booleaan: true
  *                 alerta: false
  */
-router.get("/codigoverificacion", CodigoVerificacionController.getAll.bind(CodigoVerificacionController));
+router.get(
+  "/codigoverificacion",
+  CodigoVerificacionController.getAll.bind(CodigoVerificacionController)
+);
 
 /**
  * @swagger
@@ -3077,7 +3445,10 @@ router.get("/codigoverificacion", CodigoVerificacionController.getAll.bind(Codig
  *               booleaan: false
  *               alerta: true
  */
-router.get("/codigoverificacion/:id", CodigoVerificacionController.getByID.bind(CodigoVerificacionController));
+router.get(
+  "/codigoverificacion/:id",
+  CodigoVerificacionController.getByID.bind(CodigoVerificacionController)
+);
 
 /**
  * @swagger
@@ -3097,7 +3468,10 @@ router.get("/codigoverificacion/:id", CodigoVerificacionController.getByID.bind(
  *               booleaan: { type: boolean, example: true }
  *               alerta: { type: boolean, example: false }
  */
-router.post("/codigoverificacion", CodigoVerificacionController.insertToDB.bind(CodigoVerificacionController));
+router.post(
+  "/codigoverificacion",
+  CodigoVerificacionController.insertToDB.bind(CodigoVerificacionController)
+);
 
 /**
  * @swagger
@@ -3112,7 +3486,10 @@ router.post("/codigoverificacion", CodigoVerificacionController.insertToDB.bind(
  *             columnName: alerta
  *             value: true
  */
-router.put("/codigoverificacion/:id", CodigoVerificacionController.updateById.bind(CodigoVerificacionController));
+router.put(
+  "/codigoverificacion/:id",
+  CodigoVerificacionController.updateById.bind(CodigoVerificacionController)
+);
 
 /**
  * @swagger
@@ -3121,8 +3498,10 @@ router.put("/codigoverificacion/:id", CodigoVerificacionController.updateById.bi
  *     summary: Elimina un código de verificación
  *     tags: [CodigoVerificacion]
  */
-router.delete("/codigoverificacion/:id", CodigoVerificacionController.deleteById.bind(CodigoVerificacionController));
-
+router.delete(
+  "/codigoverificacion/:id",
+  CodigoVerificacionController.deleteById.bind(CodigoVerificacionController)
+);
 
 // ============================ RECIBO ROUTES ============================
 /**
@@ -3200,6 +3579,9 @@ router.put("/recibo/:id", ReciboController.updateById.bind(ReciboController));
  *     summary: Elimina un recibo
  *     tags: [Recibo]
  */
-router.delete("/recibo/:id", ReciboController.deleteById.bind(ReciboController));
+router.delete(
+  "/recibo/:id",
+  ReciboController.deleteById.bind(ReciboController)
+);
 
 module.exports = router;

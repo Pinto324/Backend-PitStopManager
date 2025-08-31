@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const LoginController = require("../controllers/LoginController");
-const authenticateToken = require('../security/authMiddleware');
-const authorize = require('../security/authorize');
+const authenticateToken = require("../security/authMiddleware");
+const authorize = require("../security/authorize");
 
 /**
  * @swagger
@@ -221,7 +221,49 @@ router.post("/verificar", LoginController.verificarCodigoRegistro);
  *               message: "Error al verificar código"
  *               error: "Database connection error"
  */
-router.post("/autenticacion", authenticateToken, LoginController.verificarCodigoAutenticacion);
+router.post(
+  "/autenticacion",
+  authenticateToken,
+  LoginController.verificarCodigoAutenticacion
+);
+/**
+ * @swagger
+ * /api/login/recuperacion:
+ *   post:
+ *     summary: Envio de codigo de recuperación al usuario por el correo
+ *     description: Busca el usuario, ya sea por correo o username y le manda un correo con el código devuelve el id para en la siguiente view mandar el código y el id a la ruta siguiente
+ *     tags: [Autenticación]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username/correo
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: "user"
+ *     responses:
+ *       200:
+ *         description: Código verificado exitosamente
+ *         content:
+ *           application/json:
+ *             example:
+ *              success: true
+ *              message: "Email con codigo enviado"
+ *              userId: usuario.id
+ *       500:
+ *         description: Error al recuperar contraseña
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Error al verificar código"
+ *               error: "Database connection error"
+ */
+router.post("/recuperacion", LoginController.verificarCodigoAutenticacion);
 /**
  * @swagger
  * /api/login:
@@ -249,7 +291,7 @@ router.post("/autenticacion", authenticateToken, LoginController.verificarCodigo
  *             example:
  *               message: "Token no proporcionado o inválido"
  */
-router.get('/', authenticateToken, authorize(['Proveedor']), (req, res) => {
-    res.json({ message: 'Acceso concedido a ruta protegida', user: req.user });
+router.get("/", authenticateToken, authorize(["Proveedor"]), (req, res) => {
+  res.json({ message: "Acceso concedido a ruta protegida", user: req.user });
 });
 module.exports = router;
