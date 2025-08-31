@@ -1,7 +1,12 @@
 // services/CodigoVerificacionService.js
 const Model = require('../controllers/ModelController');
+const ModelService = require('./ModelService');
 
-class CodigoVerificacionService {
+class CodigoVerificacionService extends ModelService {
+    
+  constructor() {
+    super('Codigo_verificacion');
+  }
     async crearCodigoVerificacion(idUsuario) {
         try {
             const EmailService = require('./EmailService');
@@ -50,45 +55,61 @@ class CodigoVerificacionService {
             throw error;
         }
     }
-    async verificarCodigo(idUsuario, codigoIngresado, EsAutenticacion) {
-        try {
-            const pool = require('../config/db');
-            const query = `
-                SELECT * FROM Codigo_verificacion 
-                WHERE id_usuario = ? AND codigo = ? 
-                AND booleaan = ?
-                AND fecha = CURDATE()
-                ORDER BY id DESC LIMIT 1
-            `;
+async verificarCodigo(idUsuario, codigoIngresado, EsAutenticacion) {
+    let connection;
+    try {
+        const pool = require('../config/db');
+        connection = await pool.getConnection();
+        
+        // Iniciar transacción
+        await connection.beginTransaction();
 
-            const [rows] = await pool.query(query, [idUsuario, codigoIngresado, EsAutenticacion]);
+        const query = `
+            SELECT * FROM Codigo_verificacion 
+            WHERE id_usuario = ? AND codigo = ? 
+            AND booleaan = ?
+            AND fecha = CURDATE()
+            ORDER BY id DESC LIMIT 1
+        `;
 
-            if (rows.length > 0) {
-                console.log(`✅ Código válido encontrado: ${rows[0].id}`);
-                // Actualizar usuario como verificado
-                await pool.query(
-                    'UPDATE Usuario SET correo_verificado = true WHERE id = ?',
-                    [idUsuario]
-                );
+        const [rows] = await connection.query(query, [idUsuario, codigoIngresado, EsAutenticacion]);
 
-                // Marcar como verificado
-                await pool.query(
-                    'UPDATE Codigo_verificacion SET booleaan = 1 WHERE id = ?',
-                    [rows[0].id]
-                );
+        if (rows.length > 0) {
+            console.log(`✅ Código válido encontrado: ${rows[0].id}`);
+            
+            // 1. Actualizar usuario como verificado
+            await connection.query(
+                'UPDATE Usuario SET correo_verificado = true WHERE id = ?',
+                [idUsuario]
+            );
 
+            // 2. Eliminar el código de verificación
+            await connection.query(
+                'DELETE FROM Codigo_verificacion WHERE id = ?',
+                [rows[0].id]
+            );
 
-                return true;
-            }
-
-            console.log('❌ Código inválido o expirado');
-            return false;
-
-        } catch (error) {
-            console.error('Error verificando código:', error.message);
-            throw error;
+            // Confirmar transacción
+            await connection.commit();
+            console.log('✅ Transacción completada exitosamente');
+            
+            return true;
         }
+
+        console.log('❌ Código inválido o expirado');
+        
+        // Si no hay código válido, hacer rollback por seguridad
+        if (connection) await connection.rollback();
+        return false;
+
+    } catch (error) {
+        if (connection) await connection.rollback();
+        console.error('Error verificando código:', error.message);
+        throw error;
+    } finally {
+        if (connection) connection.release();
     }
+}
     
 }
 
