@@ -255,5 +255,90 @@ router.get("/ordenreparacion/estado/:estado", OrdenReparacionController.getByEst
  *               message: "Error del servidor"
  *               error: "Database connection error"
  */
-router.get("/ordenreparacion/vehiculo/:id",  OrdenReparacionController.getWorkVehiculoByID.bind(OrdenReparacionController));
+router.get("/ordenreparacion/vehiculo/:id", OrdenReparacionController.getWorkVehiculoByID.bind(OrdenReparacionController));
+/**
+ * @swagger
+ * /api/ordenreparacion/Reporte/Trabajo:
+ *   post:
+ *     summary: Generar un reporte de órdenes de trabajo por rango de fechas
+ *     description: Retorna un reporte detallado de las órdenes de trabajo completadas en un rango de fechas específico.
+ *     tags: [OrdenReparacion]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - fecha_inicio
+ *               - fecha_final
+ *             properties:
+ *               fecha_inicio:
+ *                 type: string
+ *                 format: date
+ *                 description: La fecha de inicio del rango del reporte (formato YYYY-MM-DD).
+ *                 example: "2024-01-01"
+ *               fecha_final:
+ *                 type: string
+ *                 format: date
+ *                 description: La fecha de fin del rango del reporte (formato YYYY-MM-DD).
+ *                 example: "2024-12-31"
+ *     responses:
+ *       200:
+ *         description: Reporte de órdenes de trabajo generado exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_orden:
+ *                     type: integer
+ *                     description: El ID de la orden de reparación.
+ *                     example: 2
+ *                   fecha_ingreso:
+ *                     type: string
+ *                     format: date-time
+ *                     description: La fecha de ingreso del vehículo.
+ *                     example: "2024-01-15T06:00:00.000Z"
+ *                   fecha_egreso:
+ *                     type: string
+ *                     format: date-time
+ *                     description: La fecha de egreso del vehículo.
+ *                     example: "2025-09-12T06:00:00.000Z"
+ *                   servicio:
+ *                     type: string
+ *                     description: El nombre del servicio de reparación.
+ *                     example: "Cambio de aceite y filtro"
+ *                   descripcion:
+ *                     type: string
+ *                     description: Descripción del servicio realizado.
+ *                     example: "Cambio completo de aceite del motor y reemplazo del filtro de aceite"
+ *                   precio:
+ *                     type: number
+ *                     description: El precio del servicio.
+ *                     example: 8500
+ *                   estado_trabajo:
+ *                     type: string
+ *                     description: El estado del trabajo.
+ *                     example: "Completado"
+ *                   mecanico_nombre:
+ *                     type: string
+ *                     description: El nombre del mecánico que realizó el trabajo.
+ *                     example: "Empleado1"
+ *                   mecanico_apellido:
+ *                     type: string
+ *                     description: El apellido del mecánico.
+ *                     example: "Empleadoo1"
+ *       500:
+ *         description: Error del servidor
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Error del servidor"
+ *               error: "Database connection error"
+ */
+router.post("/ordenreparacion/Reporte/Trabajo", OrdenReparacionController.reporteTrabajoPeriodo.bind(OrdenReparacionController));
 module.exports = router;

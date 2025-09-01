@@ -108,6 +108,10 @@ router.get("/cliente/", UsuarioController.getClientes.bind(UsuarioController));
  *                     type: string
  *                     description: Las placas del vehículo.
  *                     example: "P2134XS"
+ *                   id:
+ *                     type: integer
+ *                     description: El id de la orden de reparación.
+ *                     example: "1"
  *                   estado_orden:
  *                     type: string
  *                     description: El estado de la orden de reparación del vehículo.
@@ -122,5 +126,7 @@ router.get("/cliente/", UsuarioController.getClientes.bind(UsuarioController));
  *               error: "Database connection error"
  */
 router.get("/cliente/vehiculos/:id", UsuarioController.ObtenerDatosDeVehiculos.bind(UsuarioController));
+
+router.get("/cliente/detalle/:id", UsuarioController.ObtenerDatosDeVehiculos.bind(UsuarioController));
 
 module.exports = router;
