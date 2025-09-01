@@ -1,3 +1,4 @@
+const PedidoService = require("../services/PedidoService");
 const MasterController = require("./MasterController");
 const { format, addDays } = require('date-fns');
 class PedidoController extends MasterController {
@@ -32,7 +33,7 @@ class PedidoController extends MasterController {
         try {
             const { id } = req.params;
             const { estado } = req.body;
-            const registroUpdated = await InventarioService.updateStockByIDInventario(id,cantidad, esAbastecer);
+            const registroUpdated = await PedidoService.updateEstadoByIDPedido(id, estado);
                       
                 res.status(201).json({
                     message: "Stock actualizado",
