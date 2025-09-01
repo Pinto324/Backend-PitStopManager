@@ -11,6 +11,7 @@ class EmpleadoOrdenReparacionController extends MasterController {
         try {
             const data = req.body;
             //verifica si el empleado está libre
+            //verificar si el usuario se repite
             if (await EmpleadoOrdenReparacionService.verifyEmpleadoLibre(data.id_empleado)) {
                 let jsonData = {
                     id_empleado: data.id_empleado,
@@ -23,6 +24,8 @@ class EmpleadoOrdenReparacionController extends MasterController {
                 message: "Registro insertado correctamente a " + this.table,
                 id: insertedId
             });
+            }else{
+
             }
 
         } catch (error) {
@@ -37,11 +40,8 @@ class EmpleadoOrdenReparacionController extends MasterController {
 
     async getEmpleadosDisponibles(req, res) {
         try {
-            const { id } = req.params;
-            let ordenReparacion = await OrdenReparacionService.getById(id);
-            let fechaHoraInicio = ordenReparacion[0].fecha_ingreso +' '+ordenReparacion[0].hora_ingreso 
-            let fechaHoraFin = ordenReparacion[0].fecha_egreso +' '+ordenReparacion[0].hora_egreso
-            data =  await EmpleadoOrdenReparacionService.getEmpleadosLibres(fechaHoraInicio, fechaHoraFin);
+            const { esEspecialista } = req.params;
+            const data =  await EmpleadoOrdenReparacionService.getEmpleadosLibres(esEspecialista);
             res.status(200).json(data);
         } catch (error) {
             res.status(500).json({ message: "Error al encontrar Empleados libres según ID de Orden Reparacion" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
