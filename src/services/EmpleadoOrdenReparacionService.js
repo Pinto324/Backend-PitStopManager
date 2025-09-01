@@ -30,29 +30,19 @@ class EmpleadoOrdenReparacionService extends ModelService {
 
   }
 
-  async verifyEmpleadoLibre(idEmpleado,fechaHoraInicio, fechaHoraFin) {
+  async verifyEmpleadoLibre(idEmpleado) {
 
     try {
       let empleadoLibre = true;
       const query = `
-      SELECT e.id, e.nombre, e.apellido
-      FROM Empleado e
-      WHERE e.id = ${idEmpleado}
-      AND e.id NOT IN (
-      SELECT eor.id_empleado
-      FROM Empleado_Orden_Reparacion eor
-      INNER JOIN Orden_Reparacion orr 
-          ON eor.id_orden_reparacion = orr.id
-      WHERE (
-          STR_TO_DATE(CONCAT(orr.fecha_ingreso, ' ', orr.hora_ingreso), '%Y-%m-%d %H:%i:%s') < ${fechaHoraInicio}
-          AND STR_TO_DATE(CONCAT(orr.fecha_egreso, ' ', orr.hora_egreso), '%Y-%m-%d %H:%i:%s') > ${fechaHoraFin}
-      )
-  );
-
-    `;
+        SELECT eor.*
+        FROM Empleado_Orden_Reparacion eor
+        INNER JOIN Orden_Reparacion orr ON eor.id_orden_reparacion = orr.id
+        WHERE orr.estado = 4 AND eor.id_empleado = ${idEmpleado};
+        );`;
 
       let listadoEmpleado = await this.executeQuery(query);
-      if (listadoEmpleado.length == 0) {//Si está ocupado, no devuelve filas
+      if (listadoEmpleado.length != 0) {//Si está libre, no devuelve filas
         empleadoLibre = false;
       }
       return empleadoLibre;
@@ -66,7 +56,7 @@ class EmpleadoOrdenReparacionService extends ModelService {
     try {
       let esEspecialista = true;
       let colums = ["id_empleado"];
-      let values = idUsuario;
+      let values = [idUsuario];
       let especialidadesUser = await EspecialidadService.getAllByParameters(colums, values);
       if (especialidadesUser.length == 0) {
         esEspecialista = false;
