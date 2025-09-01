@@ -217,4 +217,92 @@ router.get("/pedido/idProveedor/:idProveedor/:estado", PedidoDetalleController.g
  *                   example: "Error al actualizar Respuestos con IDRepuesto: Error en la consulta SQL"
  */
 router.put("/pedidodetalle/idPedidoDetalle/:id", PedidoDetalleController.updateEstadoByIDPedidoDetalle.bind(PedidoDetalleController));
+/**
+ * @swagger
+ * /pedidodetalle/deletePedidoDetalle/{id}:
+ *   put:
+ *     summary: Marcar un detalle de pedido como eliminado
+ *     description: >
+ *       Actualiza el campo `estado` de un `Pedido_Detalle` a `1` (eliminado) según su ID.  
+ *       No elimina físicamente el registro de la base de datos.
+ *     tags:
+ *       - PedidoDetalle
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID único del detalle de pedido a actualizar.
+ *         schema:
+ *           type: integer
+ *           example: 15
+ *     responses:
+ *       201:
+ *         description: Estado del detalle de pedido actualizado a eliminado correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Stock actualizado"
+ *                 id:
+ *                   type: integer
+ *                   example: 15
+ *       400:
+ *         description: Petición inválida (parámetros incorrectos).
+ *       500:
+ *         description: Error interno al marcar el detalle de pedido como eliminado.
+ */
+
+/**
+ * @swagger
+ * /pedidodetalle/pedidoDetalleAprobado/{idPedido}:
+ *   get:
+ *     summary: Obtener detalles de pedido aprobados por ID de pedido
+ *     description: >
+ *       Retorna todos los registros de la tabla `Pedido_Detalle` que correspondan al pedido indicado (`idPedido`) y que tengan el estado `3` (aprobado).
+ *     tags:
+ *       - PedidoDetalle
+ *     parameters:
+ *       - in: path
+ *         name: idPedido
+ *         required: true
+ *         description: ID único del pedido.
+ *         schema:
+ *           type: integer
+ *           example: 8
+ *     responses:
+ *       200:
+ *         description: Lista de detalles de pedido aprobados encontrados.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 23
+ *                   id_pedido:
+ *                     type: integer
+ *                     example: 8
+ *                   id_proveedor_repuesto:
+ *                     type: integer
+ *                     example: 4
+ *                   estado:
+ *                     type: integer
+ *                     example: 3
+ *                   cantidad_solicitada:
+ *                     type: integer
+ *                     example: 10
+ *       404:
+ *         description: No se encontraron detalles aprobados para el pedido.
+ *       500:
+ *         description: Error interno al obtener los detalles de pedido aprobados.
+ */
+
+router.put("/pedidodetalle/deletePedidoDetalle/:id", PedidoDetalleController.deletePedidoDetalleByID.bind(PedidoDetalleController));
+router.get("/pedidodetalle/pedidoDetalleAprobado/:idPedido", PedidoDetalleController.getPedidoDetalleByIdPedidoAproved.bind(PedidoDetalleController));
 module.exports = router;
