@@ -11,12 +11,11 @@ class EmpleadoOrdenReparacionController extends MasterController {
         try {
             const data = req.body;
             //verifica si el empleado está libre
-            let ordenReparacion = await OrdenReparacionService.getById(id);
             if (await EmpleadoOrdenReparacionService.verifyEmpleadoLibre(data.id_empleado)) {
-                jsonData = {
+                let jsonData = {
                     id_empleado: data.id_empleado,
                     id_orden_reparacion: data.id_orden_reparacion,
-                    es_especialista: EmpleadoOrdenReparacionService.verifyEspecialista(data.id_empleado)
+                    es_especialista: await EmpleadoOrdenReparacionService.verifyEspecialista(data.id_empleado)
                 }
             // Insertar Registro
             const insertedId = await this.insertToDBTable(jsonData);

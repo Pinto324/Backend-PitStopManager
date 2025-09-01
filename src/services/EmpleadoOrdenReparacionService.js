@@ -3,7 +3,7 @@ const EspecialidadService = require("./EspecialidadService");
 
 class EmpleadoOrdenReparacionService extends ModelService {
   constructor() {
-    super('EmpleadoOrdenReparacion');
+    super('Empleado_Orden_Reparacion');
   }
 
   async getEmpleadosLibres(fechaHoraInicio, fechaHoraFin) {
@@ -39,7 +39,7 @@ class EmpleadoOrdenReparacionService extends ModelService {
         FROM Empleado_Orden_Reparacion eor
         INNER JOIN Orden_Reparacion orr ON eor.id_orden_reparacion = orr.id
         WHERE orr.estado = 4 AND eor.id_empleado = ${idEmpleado};
-        );`;
+        `;
 
       let listadoEmpleado = await this.executeQuery(query);
       if (listadoEmpleado.length != 0) {//Si está libre, no devuelve filas
