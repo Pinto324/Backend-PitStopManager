@@ -113,7 +113,7 @@ router.get("/pedido/idProveedor/:idProveedor", PedidoDetalleController.getPedido
  *       - in: path
  *         name: estado
  *         required: true
- *         description: Estado del pedido (ejemplo: 1 = Activo, 0 = Inactivo).
+ *         description: Estado del pedido.
  *         schema:
  *           type: integer
  *           example: 1

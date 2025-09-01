@@ -1,4 +1,5 @@
 const ModelService = require("./ModelService");
+const Model = require("../controllers/ModelController");
 
 class VehiculoService extends ModelService {
   constructor() {
