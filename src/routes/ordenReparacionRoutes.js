@@ -522,6 +522,59 @@ router.get("/ordenreparacion/Reporte/Trabajo/:id", OrdenReparacionController.rep
  *               error: "Database connection error"
  */
 router.get("/ordenreparacion/Reporte/Trabajador/:id", OrdenReparacionController.reporteTrabajoFiltroTrabajor.bind(OrdenReparacionController));
-
+/**
+ * @swagger
+ * /api/pago/reporte/Ingresos:
+ *   get:
+ *     summary: Obtener reporte de ingresos
+ *     description: Retorna un reporte detallado de los ingresos registrados, incluyendo información de pagos, facturas y recibos.
+ *     tags: [Pagos]
+ *     responses:
+ *       200:
+ *         description: Reporte de ingresos obtenido exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_pago:
+ *                     type: integer
+ *                     description: El ID del registro de pago.
+ *                     example: 2
+ *                   fecha_pago:
+ *                     type: string
+ *                     format: date-time
+ *                     description: La fecha y hora en que se registró el pago.
+ *                     example: "2025-09-10T06:00:00.000Z"
+ *                   ingreso:
+ *                     type: string
+ *                     description: El monto del ingreso.
+ *                     example: "660.00"
+ *                   id_factura:
+ *                     type: integer
+ *                     description: El ID de la factura asociada al pago.
+ *                     example: 1
+ *                   fecha_recibo:
+ *                     type: string
+ *                     format: date-time
+ *                     nullable: true
+ *                     description: La fecha del recibo. Puede ser nulo.
+ *                     example: "2025-09-10T06:00:00.000Z"
+ *                   total_recibo:
+ *                     type: string
+ *                     nullable: true
+ *                     description: El monto total del recibo. Puede ser nulo.
+ *                     example: "400.00"
+ *       500:
+ *         description: Error del servidor
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Error del servidor"
+ *               error: "Database connection error"
+ */
 router.get("/pago/reporte/Ingresos", PagoController.reporteIngresos.bind(PagoController));
 module.exports = router;
