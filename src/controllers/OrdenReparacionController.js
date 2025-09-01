@@ -103,8 +103,40 @@ class OrdenReparacionController extends MasterController {
         } catch (error) {
             res.status(500).json({ message: "Error al hacer reporte de trabajo por periodo" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
         }
+        
+    }
+    
+    async reporteTrabajoFiltroFecha(req, res) {
+        try {
+            const { fecha_inicio, fecha_final } = req.body;
+            let data = await OrdenReparacionService.reporteTrabajoFiltroFecha(fecha_inicio, fecha_final);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al hacer reporte de trabajo por filtro fecha" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+        
     }
 
+    async reporteTrabajoFiltroTrabajo(req, res) {
+        try {
+            const { id } = req.params;
+            let data = await OrdenReparacionService.reporteTrabajoFiltroTipo(id);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al hacer reporte de trabajo por filtro trabajo" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+        
+    }
+        async reporteTrabajoFiltroTrabajor(req, res) {
+        try {
+            const { id } = req.params;
+            let data = await OrdenReparacionService.reporteTrabajoFiltroTrabajador(id);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al hacer reporte de trabajo por filtro trabajo" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+        
+    }
 }
 
 module.exports = new OrdenReparacionController();
