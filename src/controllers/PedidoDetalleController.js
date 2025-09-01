@@ -79,6 +79,32 @@ class PedidoDetalleController extends MasterController {
         }
     }
 
+    async getPedidoByIDProveedorEstadoPedido(req, res) {
+        try {
+            const { idProveedor, estado } = req.params;
+            let data = await PedidoDetalleService.getDetallePedidosProveedor(idProveedor, estado);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al encontrar ordenes de reparación del empleado" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+    }
+
+    async updateEstadoByIDPedidoDetalle(req, res) {
+        try {
+            const { id } = req.params;
+            const { estado } = req.body;
+            const registroUpdated = await PedidoDetalleService.updateEstadoByIDDetallePedido(id,estado);
+                      
+                res.status(201).json({
+                    message: "Stock actualizado",
+                    id: registroUpdated
+                });
+            
+        } catch (error) {
+            throw new Error("Error al actualizar Respuestos con IDRepuesto: " + error.message);
+        }
+    }
+
 }
 
 module.exports = new PedidoDetalleController();

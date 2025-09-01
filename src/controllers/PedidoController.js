@@ -27,6 +27,24 @@ class PedidoController extends MasterController {
             });
         }
     }
+
+    async updateEstadoPedidoByIDPedido(req, res) {
+        try {
+            const { id } = req.params;
+            const { estado } = req.body;
+            const registroUpdated = await InventarioService.updateStockByIDInventario(id,cantidad, esAbastecer);
+                      
+                res.status(201).json({
+                    message: "Stock actualizado",
+                    id: registroUpdated
+                });
+            
+        } catch (error) {
+            throw new Error("Error al actualizar Respuestos con IDRepuesto: " + error.message);
+        }
+    }
+
+    
 }
 
 module.exports = new PedidoController();

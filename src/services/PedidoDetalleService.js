@@ -17,6 +17,16 @@ WHERE prov.id = ${idProveedor} AND p.estado = ${estado}
          `;
     return await this.executeQuery(querry);
   }
+
+  async updateEstadoByIDDetallePedido(idDetallePedido, estado) {
+    try {
+        const updatedData = await this.updateById(idDetallePedido, "estado", estado);
+        return updatedData;
+       
+    } catch (error) {
+      throw new Error("Error al actualizar Respuestos con IDRepuesto: " + error.message);
+    }
+  }
 }
 
 module.exports = new PedidoDetalleService();
