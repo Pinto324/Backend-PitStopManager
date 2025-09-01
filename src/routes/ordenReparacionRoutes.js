@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const OrdenReparacionController = require("../controllers/OrdenReparacionController");
+const PagoController = require("../controllers/PagoController");
 const authenticateToken = require("../security/authMiddleware");
 const authorize = require("../security/authorize");
 
@@ -521,4 +522,6 @@ router.get("/ordenreparacion/Reporte/Trabajo/:id", OrdenReparacionController.rep
  *               error: "Database connection error"
  */
 router.get("/ordenreparacion/Reporte/Trabajador/:id", OrdenReparacionController.reporteTrabajoFiltroTrabajor.bind(OrdenReparacionController));
+
+router.get("/pago/reporte/Ingresos", PagoController.reporteIngresos.bind(PagoController));
 module.exports = router;
