@@ -577,4 +577,6 @@ router.get("/ordenreparacion/Reporte/Trabajador/:id", OrdenReparacionController.
  *               error: "Database connection error"
  */
 router.get("/pago/reporte/Ingresos", PagoController.reporteIngresos.bind(PagoController));
+
+router.get("/pago/reporte/Egresos", PagoController.reporteEgresos.bind(PagoController));
 module.exports = router;

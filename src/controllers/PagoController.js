@@ -16,6 +16,16 @@ class PagoController extends MasterController {
         
     }
 
+        async reporteEgresos(req, res) {
+        try {
+            let data = await PagoService.ReporteEgresos();
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al hacer reporte ingresos" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+        
+    }
+
 
 }
 
