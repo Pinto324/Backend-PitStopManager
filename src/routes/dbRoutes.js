@@ -1276,15 +1276,33 @@ router.get("/pedido/:id", PedidoController.getByID.bind(PedidoController));
  * /pedido:
  *   post:
  *     summary: Crea un pedido
+ *     description: >
+ *       Crea un nuevo pedido en la base de datos.  
+ *       La `fecha_pedido` se establece automáticamente con la fecha actual
+ *       y la `fecha_entrega` se calcula desde el backend.
  *     tags: [Pedido]
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             properties:
- *               fecha_pedido: { type: string, format: date, example: "2025-01-10" }
- *               fecha_entrega: { type: string, format: date, example: "2025-01-15" }
- *               estado: { type: integer, example: 1 }
+ *     responses:
+ *       201:
+ *         description: Pedido creado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 10
+ *                 fecha_pedido:
+ *                   type: string
+ *                   format: date
+ *                   example: "2025-09-01"
+ *                 fecha_entrega:
+ *                   type: string
+ *                   format: date
+ *                   example: "2025-09-08"
+ *                 estado:
+ *                   type: integer
+ *                   example: 1
  */
 router.post("/pedido", PedidoController.insertToDB.bind(PedidoController));
 
