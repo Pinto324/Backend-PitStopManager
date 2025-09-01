@@ -10,6 +10,7 @@ const inventarioRoutes = require("./src/routes/inventarioRoutes");
 const ordenReparacionRoutes = require("./src/routes/ordenReparacionRoutes.js"); 
 const ServicioOrdenReparacionRoutes = require("./src/routes/servicioOrdenReparacionRoutes.js"); 
 const empleadoOrdenReparacionRoutes = require("./src/routes/empleadoOrdenReparacionRoutes.js"); 
+const clienteRoutes = require("./src/routes/clienteRoutes.js"); 
 const app = express();
 
 const swaggerDocs = require("./src/config/swagger");
@@ -26,6 +27,7 @@ app.use("/api", inventarioRoutes);
 app.use("/api", ordenReparacionRoutes);
 app.use("/api", empleadoOrdenReparacionRoutes);
 app.use("/api", ServicioOrdenReparacionRoutes);
+app.use("/api", clienteRoutes);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

@@ -1,5 +1,5 @@
 const ModelService = require("./ModelService");
-
+const Model = require("../controllers/ModelController");
 class ServicioOrdenReparacionService extends ModelService {
   constructor() {
     super('Servicio_Orden_Reparacion');

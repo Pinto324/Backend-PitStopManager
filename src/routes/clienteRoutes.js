@@ -55,8 +55,72 @@ const UsuarioController = require("../controllers/UsuarioController");
  */
 
 
-router.get("/cliente/", UsuarioController.getClientes.bind(EmpleadoOrdenReparacionController));
-
-router.get("/cliente/", UsuarioController.getClientes.bind(EmpleadoOrdenReparacionController));
+router.get("/cliente/", UsuarioController.getClientes.bind(UsuarioController));
+/**
+ * @swagger
+ * /api/cliente/vehiculos/{id}:
+ *   get:
+ *     summary: Obtener vehículos de un cliente por ID de usuario
+ *     description: Retorna una lista de todos los vehículos y el estado de sus órdenes de reparación, asociados a un cliente específico.
+ *     tags: [Usuario]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: El ID del usuario (cliente).
+ *     responses:
+ *       200:
+ *         description: Lista de vehículos del cliente obtenida exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_usuario:
+ *                     type: integer
+ *                     description: El ID del usuario.
+ *                     example: 14
+ *                   nombre:
+ *                     type: string
+ *                     description: El nombre del cliente.
+ *                     example: "Cliente1"
+ *                   apellido:
+ *                     type: string
+ *                     description: El apellido del cliente.
+ *                     example: "Cliente1"
+ *                   id_vehiculo:
+ *                     type: integer
+ *                     description: El ID del vehículo.
+ *                     example: 3
+ *                   marca:
+ *                     type: string
+ *                     description: La marca del vehículo.
+ *                     example: "Mitsubishi"
+ *                   modelo:
+ *                     type: string
+ *                     description: El modelo del vehículo.
+ *                     example: "Lancer"
+ *                   placas:
+ *                     type: string
+ *                     description: Las placas del vehículo.
+ *                     example: "P2134XS"
+ *                   estado_orden:
+ *                     type: string
+ *                     description: El estado de la orden de reparación del vehículo.
+ *                     example: "Aprobado por el Cliente"
+ *       500:
+ *         description: Error del servidor
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Error del servidor"
+ *               error: "Database connection error"
+ */
+router.get("/cliente/vehiculos/:id", UsuarioController.ObtenerDatosDeVehiculos.bind(UsuarioController));
 
 module.exports = router;

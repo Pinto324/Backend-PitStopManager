@@ -68,7 +68,18 @@ class UsuarioController extends MasterController {
     } catch (error) {
         res.status(500).json({ message: "Error al encontrar Clientes"+this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
     }
-}
+  }
+  async ObtenerDatosDeVehiculos(req, res) {
+    try {
+        const { id } = req.params;
+        let data = await UsuarioService.ObtenerDatosDeVehiculos(id);
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json({ message: "Error al encontrar Clientes"+this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+    }
+  }
+
+  
 }
 
 module.exports = new UsuarioController();
