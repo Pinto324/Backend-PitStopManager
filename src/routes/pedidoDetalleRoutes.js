@@ -113,7 +113,7 @@ router.get("/pedido/idProveedor/:idProveedor", PedidoDetalleController.getPedido
  *       - in: path
  *         name: estado
  *         required: true
- *         description: Estado del pedido.
+ *         description: Estado del pedido (ejemplo: 1 = Activo, 0 = Inactivo).
  *         schema:
  *           type: integer
  *           example: 1
@@ -304,5 +304,62 @@ router.put("/pedidodetalle/idPedidoDetalle/:id", PedidoDetalleController.updateE
  */
 
 router.put("/pedidodetalle/deletePedidoDetalle/:id", PedidoDetalleController.deletePedidoDetalleByID.bind(PedidoDetalleController));
+/**
+ * @swagger
+ * /pedido/aprovedPedido/{id}:
+ *   post:
+ *     summary: Aprueba un pedido
+ *     description: >
+ *       Cambia el estado de un pedido a `7` (aprobado) y actualiza el stock de los repuestos correspondientes.  
+ *       Además, actualiza los detalles de pedido con estado `3` y genera un recibo en inventario.
+ *     tags:
+ *       - Pedido
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID único del pedido que se va a aprobar.
+ *         schema:
+ *           type: integer
+ *           example: 12
+ *     responses:
+ *       201:
+ *         description: Pedido aprobado y stock actualizado correctamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Stock actualizado"
+ *                 id:
+ *                   type: array
+ *                   description: Lista de repuestos actualizados en inventario.
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id_repuesto:
+ *                         type: integer
+ *                         example: 5
+ *                       nombre_repuesto:
+ *                         type: string
+ *                         example: "Filtro de aceite"
+ *                       cantidad_solicitada:
+ *                         type: integer
+ *                         example: 10
+ *                       precio:
+ *                         type: number
+ *                         format: double
+ *                         example: 25.5
+ *                       proveedor:
+ *                         type: string
+ *                         example: "Proveedor XYZ"
+ *       400:
+ *         description: Petición inválida o parámetros incorrectos.
+ *       500:
+ *         description: Error interno al aprobar el pedido o actualizar inventario.
+ */
+
 router.get("/pedidodetalle/pedidoDetalleAprobado/:idPedido", PedidoDetalleController.getPedidoDetalleByIdPedidoAproved.bind(PedidoDetalleController));
 module.exports = router;

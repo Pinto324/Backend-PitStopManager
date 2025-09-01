@@ -48,4 +48,5 @@ const PedidoController = require("../controllers/PedidoController");
  */
 
 router.put("/pedido/idPedido/:id", PedidoController.updateEstadoPedidoByIDPedido.bind(PedidoController));
+router.post("/pedido/aprovedPedido/:id", PedidoController.aprovePedido.bind(PedidoController));
 module.exports = router;

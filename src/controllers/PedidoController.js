@@ -1,6 +1,8 @@
 const PedidoService = require("../services/PedidoService");
 const MasterController = require("./MasterController");
 const { format, addDays } = require('date-fns');
+const PedidoDetalleService = require("../services/PedidoDetalleService");
+const InventarioService = require("../services/InventarioService")
 class PedidoController extends MasterController {
     constructor() {
         super('Pedido');
@@ -45,7 +47,39 @@ class PedidoController extends MasterController {
         }
     }
 
-    
+    async aprovePedido(req, res) {
+        try {
+            const { id } = req.params;//estado 7
+            const estado = 7; 
+            const estadoDetallePedido = 3; 
+            const repuestos = await PedidoService.getRepuestosByIDPedidoEstado(id, estadoDetallePedido);    
+            console.log(repuestos);
+            //
+
+            this.addToInventario(repuestos);//generar recibo
+            await PedidoService.updateEstadoByIDPedido(id, estado);
+                res.status(201).json({
+                    message: "Stock actualizado",
+                    id: repuestos
+                });
+            
+        } catch (error) {
+            throw new Error("Error al actualizar Respuestos con IDRepuesto: " + error.message);
+        }
+    }
+
+
+    async addToInventario(repuestos) {
+        try {
+            repuestos.forEach(async repuesto => {
+                await InventarioService.updateStockByIDRepuesto(repuesto.id_repuesto, repuesto.cantidad_solicitada, 1);
+            });
+         
+        } catch (error) {
+            throw new Error("Error : " + error.message);
+        }
+    }
+
 }
 
 module.exports = new PedidoController();

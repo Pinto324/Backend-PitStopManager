@@ -359,65 +359,65 @@ class MasterController {
     async updateByIdTable(id, value, columnName) {
         switch (this.table) {
             case 'Rol':
-                return await RolService.updateById(id, value, columnName);
+                return await RolService.updateById(id, columnName, value);
             case 'Usuario':
-                return await UsuarioService.updateById(id, value, columnName);
+                return await UsuarioService.updateById(id, columnName, value);
             case 'Empleado':
-                return await EmpleadoService.updateById(id, value, columnName);
+                return await EmpleadoService.updateById(id, columnName, value);
             case 'Tipo_Especialidad':
-                return await Tipo_EspecialidadService.updateById(id, value, columnName);
+                return await Tipo_EspecialidadService.updateById(id, columnName, value);
             case 'Especialidad':
-                return await EspecialidadService.updateById(id, value, columnName);
+                return await EspecialidadService.updateById(id, columnName, value);
             case 'Vehiculo':
-                return await VehiculoService.updateById(id, value, columnName);
+                return await VehiculoService.updateById(id, columnName, value);
             case 'Proveedor':
-                return await ProveedorService.updateById(id, value, columnName);
+                return await ProveedorService.updateById(id, columnName, value);
             case 'Repuesto':
-                return await RepuestoService.updateById(id, value, columnName);
+                return await RepuestoService.updateById(id, columnName, value);
             case 'Proveedor_Repuesto':
-                return await Proveedor_RepuestoService.updateById(id, value, columnName);
+                return await Proveedor_RepuestoService.updateById(id, columnName, value);
             case 'Estado_Pedido':
-                return await Estado_PedidoService.updateById(id, value, columnName);
+                return await Estado_PedidoService.updateById(id, columnName, value);
             case 'Pedido':
-                return await PedidoService.updateById(id, value, columnName);
+                return await PedidoService.updateById(id, columnName, value);
             case 'Estado_Pedido_Detalle':
-                return await Estado_Pedido_DetalleService.updateById(id, value, columnName);
+                return await Estado_Pedido_DetalleService.updateById(id, columnName, value);
             case 'Pedido_Detalle':
-                return await Pedido_DetalleService.updateById(id, value, columnName);
+                return await Pedido_DetalleService.updateById(id, columnName, value);
             case 'Inventario':
-                return await InventarioService.updateById(id, value, columnName);
+                return await InventarioService.updateById(id, columnName, value);
             case 'Estado_Orden_Reparacion':
-                return await Estado_Orden_ReparacionService.updateById(id, value, columnName);
+                return await Estado_Orden_ReparacionService.updateById(id, columnName, value);
             case 'Orden_Reparacion':
-                return await Orden_ReparacionService.updateById(id, value, columnName);
+                return await Orden_ReparacionService.updateById(id, columnName, value);
             case 'Servicio':
-                return await ServicioService.updateById(id, value, columnName);
+                return await ServicioService.updateById(id, columnName, value);
             case 'Estado_Trabajo':
-                return await Estado_TrabajoService.updateById(id, value, columnName);
+                return await Estado_TrabajoService.updateById(id, columnName, value);
             case 'Servicio_Orden_Reparacion':
-                return await Servicio_Orden_ReparacionService.updateById(id, value, columnName);
+                return await Servicio_Orden_ReparacionService.updateById(id, columnName, value);
             case 'Inventario_Orden_Reparacion':
-                return await Inventario_Orden_ReparacionService.updateById(id, value, columnName);
+                return await Inventario_Orden_ReparacionService.updateById(id, columnName, value);
             case 'Factura':
-                return await FacturaService.updateById(id, value, columnName);
+                return await FacturaService.updateById(id, columnName, value);
             case 'Pago':
-                return await PagoService.updateById(id, value, columnName);
+                return await PagoService.updateById(id, columnName, value);
             case 'Chat_Usuario':
-                return await Chat_UsuarioService.updateById(id, value, columnName);
+                return await Chat_UsuarioService.updateById(id, columnName, value);
             case 'Tipo_Notificacion':
-                return await Tipo_NotificacionService.updateById(id, value, columnName);
+                return await Tipo_NotificacionService.updateById(id, columnName, value);
             case 'Notificacion':
-                return await NotificacionService.updateById(id, value, columnName);
+                return await NotificacionService.updateById(id, columnName, value);
             case 'Empleado_Orden_Reparacion':
-                return await Empleado_Orden_ReparacionService.updateById(id, value, columnName);
+                return await Empleado_Orden_ReparacionService.updateById(id, columnName, value);
             case 'TipoReporte':
-                return await TipoReporteService.updateById(id, value, columnName);
+                return await TipoReporteService.updateById(id, columnName, value);
             case 'Reporte':
-                return await ReporteService.updateById(id, value, columnName);
+                return await ReporteService.updateById(id, columnName, value);
             case 'Codigo_verificacion':
-                return await Codigo_verificacionService.updateById(id, value, columnName);
+                return await Codigo_verificacionService.updateById(id, columnName, value);
             case 'Recibo':
-                return await ReciboService.updateById(id, value, columnName);
+                return await ReciboService.updateById(id, columnName, value);
             default:
                 throw new Error(`Tabla ${this.table} no soportada`);
         }
