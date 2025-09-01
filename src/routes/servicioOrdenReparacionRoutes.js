@@ -66,6 +66,6 @@ const ServicioOrdenReparacionController = require("../controllers/ServicioOrdenR
  *               errorMessage: "Error al consultar base de datos"
  */
 
-router.get("/servicioordenreparacion/idOrden/:idOrden", ServicioOrdenReparacionController.getByOrdenReparacion.bind(ServicioOrdenReparacionController));
+router.get("/servicioordenreparacion/idOrden/:idOrdenReparacion", ServicioOrdenReparacionController.getByOrdenReparacion.bind(ServicioOrdenReparacionController));
 
 module.exports = router;

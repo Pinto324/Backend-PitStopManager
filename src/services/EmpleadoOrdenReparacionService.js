@@ -46,6 +46,45 @@ class EmpleadoOrdenReparacionService extends ModelService {
 
   }
 
+async getEmpleadosLibresConEspecialidad(esEspecialista, id_tipo_especialidad) {
+  try {
+    let query = `
+      SELECT e.*
+      FROM Empleado e
+      WHERE e.id NOT IN (
+        SELECT eor.id_empleado
+        FROM Empleado_Orden_Reparacion eor
+        INNER JOIN Orden_Reparacion orr 
+          ON eor.id_orden_reparacion = orr.id
+        WHERE orr.estado = 4
+      )
+    `;
+
+    // Si se requiere que sea especialista
+    if (esEspecialista) {
+      query = `
+        SELECT DISTINCT e.*
+        FROM Empleado e
+        INNER JOIN Especialidad esp 
+          ON e.id = esp.id_empleado
+        WHERE esp.id_tipo_especialidad = ${id_tipo_especialidad}
+          AND e.id NOT IN (
+            SELECT eor.id_empleado
+            FROM Empleado_Orden_Reparacion eor
+            INNER JOIN Orden_Reparacion orr 
+              ON eor.id_orden_reparacion = orr.id
+            WHERE orr.estado = 4
+          )
+      `;
+    }
+
+    return await this.executeQuery(query);
+  } catch (error) {
+    throw new Error("Error al calcular empleados libres: " + error.message);
+  }
+}
+
+
   async verifyEmpleadoLibre(idEmpleado) {
 
     try {

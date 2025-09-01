@@ -9,7 +9,7 @@ class OrdenReparacionService extends ModelService {
     return await Model.updateById(this.table, id, 'estado', value);
   }
 
-  async getWorkByID(idUsuario){ 
+  async getWorkByID(idUsuario) { 
    const querry = `
 SELECT 
     eor.id AS id_asignacion,
@@ -35,12 +35,44 @@ INNER JOIN Empleado e
 INNER JOIN Usuario u 
     ON e.id_usuario = u.id
 WHERE e.id_usuario = ? 
-  AND est.estado IN ('En curso', 'Finalizado');
+  AND est.estado IN ('En curso', 'Completado');
 
         `;
             const Parametros = [idUsuario];
             return await Model.executeSelect(querry, Parametros);
   }
+
+    async getWorkVehiculoByID(idVehiculo) { 
+   const querry = `
+SELECT 
+    orr.id AS id_orden,
+    orr.fecha_ingreso,
+    orr.hora_ingreso,
+    orr.fecha_egreso,
+    orr.hora_egreso,
+    eor.estado AS estado_orden,
+    s.servicio AS nombre_servicio,
+    s.descripcion AS descripcion_servicio,
+    s.precio AS precio_servicio,
+    s.es_correctivo,
+    et.estado AS estado_trabajo
+FROM Orden_Reparacion orr
+INNER JOIN Estado_Orden_Reparacion eor 
+    ON orr.estado = eor.id
+INNER JOIN Servicio_Orden_Reparacion sor 
+    ON orr.id = sor.id_orden_reparacion
+INNER JOIN Servicio s 
+    ON sor.id_servicio = s.id
+INNER JOIN Estado_Trabajo et 
+    ON sor.id_estado_trabajo = et.id
+WHERE orr.id_vehiculo = ? 
+ORDER BY orr.fecha_ingreso DESC;
+        `;
+            const Parametros = [idVehiculo];
+            return await Model.executeSelect(querry, Parametros);
+  }
 }
+
+
 
 module.exports = new OrdenReparacionService();

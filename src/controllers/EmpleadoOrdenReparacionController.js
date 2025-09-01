@@ -40,8 +40,13 @@ class EmpleadoOrdenReparacionController extends MasterController {
 
     async getEmpleadosDisponibles(req, res) {
         try {
-            const { esEspecialista } = req.params;
-            const data =  await EmpleadoOrdenReparacionService.getEmpleadosLibres(esEspecialista);
+            const { esEspecialista, id_tipo_especialidad } = req.params;
+            let data;
+            if (id_tipo_especialidad) {
+                data =  await EmpleadoOrdenReparacionService.getEmpleadosLibresConEspecialidad(esEspecialista, id_tipo_especialidad);
+            } else { 
+                data =  await EmpleadoOrdenReparacionService.getEmpleadosLibres(esEspecialista);
+            }  
             res.status(200).json(data);
         } catch (error) {
             res.status(500).json({ message: "Error al encontrar Empleados libres según ID de Orden Reparacion" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });

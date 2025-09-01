@@ -85,6 +85,16 @@ class OrdenReparacionController extends MasterController {
         }
     }
 
+    async getWorkVehiculoByID(req, res) {
+        try {
+            const { id } = req.params;
+            let data = await OrdenReparacionService.getWorkVehiculoByID(id);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al encontrar el trabajo de un vehiculo" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+    }
+
 }
 
 module.exports = new OrdenReparacionController();

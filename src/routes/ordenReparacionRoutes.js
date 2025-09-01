@@ -178,42 +178,82 @@ router.get("/ordenreparacion/estado/:estado", OrdenReparacionController.getByEst
 
 /**
  * @swagger
- * /api/ordenreparacion/trabajos:
+ * /api/ordenreparacion/vehiculo/{id}:
  *   get:
- *     summary: Ruta protegida trabajos del empleado (requiere token JWT)
- *     description: Accede a esta ruta únicamente con un token válido generado en el login, aqui te devuelve todos los registros de los datos de los trabajos del usuario
- *     tags: [Autenticación]
- *     security:
- *       - bearerAuth: []
+ *     summary: Obtener órdenes de reparación por ID de vehículo
+ *     description: Retorna una lista de todas las órdenes de reparación asociadas a un vehículo específico.
+ *     tags: [OrdenReparacion]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: El ID del vehículo.
  *     responses:
  *       200:
- *         description: Acceso concedido
+ *         description: Lista de órdenes de reparación obtenida exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_orden:
+ *                     type: integer
+ *                     description: El ID de la orden de reparación.
+ *                     example: 4
+ *                   fecha_ingreso:
+ *                     type: string
+ *                     format: date-time
+ *                     description: La fecha de ingreso del vehículo al taller.
+ *                     example: "2025-09-01T06:00:00.000Z"
+ *                   hora_ingreso:
+ *                     type: string
+ *                     description: La hora de ingreso del vehículo al taller.
+ *                     example: "02:31:10"
+ *                   fecha_egreso:
+ *                     type: string
+ *                     format: date-time
+ *                     description: La fecha de egreso del vehículo del taller.
+ *                     example: "2025-09-11T06:00:00.000Z"
+ *                   hora_egreso:
+ *                     type: string
+ *                     description: La hora de egreso del vehículo del taller.
+ *                     example: "02:33:00"
+ *                   estado_orden:
+ *                     type: string
+ *                     description: El estado actual de la orden de reparación.
+ *                     example: "En curso"
+ *                   nombre_servicio:
+ *                     type: string
+ *                     description: El nombre del servicio de reparación.
+ *                     example: "Cambio de llantas"
+ *                   descripcion_servicio:
+ *                     type: string
+ *                     description: Una descripción detallada del servicio.
+ *                     example: "Cambio de llantas"
+ *                   precio_servicio:
+ *                     type: number
+ *                     description: El costo del servicio.
+ *                     example: 500
+ *                   es_correctivo:
+ *                     type: integer
+ *                     description: Indica si el servicio es correctivo (1) o no (0).
+ *                     example: 0
+ *                   estado_trabajo:
+ *                     type: string
+ *                     description: El estado del trabajo individual.
+ *                     example: "Pendiente"
+ *       500:
+ *         description: Error del servidor
  *         content:
  *           application/json:
  *             example:
- *               message: "Acceso concedido a ruta protegida"
- *               user:
- *                   id_asignacion: 1
- *                   id_empleado: 5
- *                   id_orden_reparacion: 10
- *                   es_especialista: true
- *                   id_vehiculo: 2
- *                   fecha_ingreso: "2024-01-15"
- *                   hora_ingreso: "09:30:00"
- *                   fecha_egreso: "2024-01-17"
- *                   hora_egreso: "16:45:00"
- *                   estado_orden: "En Curso"
- *                   estado_descripcion: "Trabajo en progreso"
- *                   marca: "Toyota"
- *                   modelo: "Corolla"
- *                   placas: "ABC123"
- *                   cantidad_servicios: 3
- *       401:
- *         description: Token inválido o ausente
- *         content:
- *           application/json:
- *             example:
- *               message: "Token no proporcionado o inválido"
+ *               success: false
+ *               message: "Error del servidor"
+ *               error: "Database connection error"
  */
-router.get("/ordenreparacion/trabajos", authenticateToken, authorize(["Empleado"]), OrdenReparacionController.getWorkByID.bind(OrdenReparacionController));
+router.get("/ordenreparacion/vehiculo/:id",  OrdenReparacionController.getWorkVehiculoByID.bind(OrdenReparacionController));
 module.exports = router;

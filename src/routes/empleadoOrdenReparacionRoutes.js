@@ -60,5 +60,5 @@ const EmpleadoOrdenReparacionController = require("../controllers/EmpleadoOrdenR
  */
 
 router.get("/empleadoordenreparacion/empleadoDisponible/:esEspecialista", EmpleadoOrdenReparacionController.getEmpleadosDisponibles.bind(EmpleadoOrdenReparacionController));
-
+router.get("/empleadoordenreparacion/empleadoDisponible/:esEspecialista/:id_tipo_especialidad", EmpleadoOrdenReparacionController.getEmpleadosDisponibles.bind(EmpleadoOrdenReparacionController));
 module.exports = router;

@@ -294,7 +294,7 @@ router.get("/", authenticateToken, authorize(["Proveedor"]), (req, res) => {
 });
 /**
  * @swagger
- * /api/ordenreparacion/trabajos:
+ * /api/login/trabajos/:id:
  *   get:
  *     summary: Ruta protegida trabajos del empleado (requiere token JWT)
  *     description: Accede a esta ruta únicamente con un token válido generado en el login, aqui te devuelve todos los registros de los datos de los trabajos del usuario

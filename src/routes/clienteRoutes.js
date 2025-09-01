@@ -57,4 +57,6 @@ const UsuarioController = require("../controllers/UsuarioController");
 
 router.get("/cliente/", UsuarioController.getClientes.bind(EmpleadoOrdenReparacionController));
 
+router.get("/cliente/", UsuarioController.getClientes.bind(EmpleadoOrdenReparacionController));
+
 module.exports = router;
