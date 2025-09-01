@@ -49,7 +49,7 @@ class ModelService {
     }
 
     async updateById(id, columnName, value) {
-        return await Model.updateById(this.table, id, columnName, value);
+        return await Model.updateById(this.table, id, value, columnName);
     }
 
     async delete(id) {

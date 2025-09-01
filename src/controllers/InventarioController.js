@@ -51,29 +51,13 @@ class InventarioController extends MasterController {
         try {
             const { id } = req.params;
             const { cantidad, esAbastecer } = req.body;
-
-            //Verificamos la cantidad en Stock
-            let repuestoInventario = await InventarioService.getById(id);
-
-            if (esAbastecer) {
-                const updatedData = await InventarioService.updateById(id, "cantidad", cantidad + repuestoInventario.cantidad);
-                let repuesto = await RepuestoService.getById(repuestoInventario.id_repuesto);
+            const registroUpdated = await InventarioService.updateStockByIDInventario(id,cantidad, esAbastecer);
+                      
                 res.status(201).json({
-                    message: "Se han agregado " + cantidad + " unidades de " + repuesto.nombre_repuesto + " al " + this.table,
+                    message: "Stock actualizado",
+                    id: registroUpdated
                 });
-            } else {
-                if ((repuestoInventario.cantidad - cantidad) < 0) {
-                    res.status(403).json({
-                        message: "No se cuenta con esa cantidad de unidades."
-                    });
-                } else {
-                    const updatedData = await InventarioService.updateById(id, "cantidad", repuestoInventario.cantidad - cantidad);
-                    let repuesto = await RepuestoService.getById(repuestoInventario.id_repuesto);
-                    res.status(201).json({
-                        message: "Se han descontado " + cantidad + " unidades de " + repuesto.nombre_repuesto + " al " + this.table,
-                    });
-                }
-            }            
+            
         } catch (error) {
             throw new Error("Error al actualizar Respuestos con IDRepuesto: " + error.message);
         }
