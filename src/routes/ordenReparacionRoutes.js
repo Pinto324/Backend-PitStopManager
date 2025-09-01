@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const OrdenReparacionController = require("../controllers/OrdenReparacionController");
+const authenticateToken = require("../security/authMiddleware");
+const authorize = require("../security/authorize");
 
 /**
  * @swagger
@@ -173,4 +175,45 @@ const OrdenReparacionController = require("../controllers/OrdenReparacionControl
 router.get("/ordenreparacion/idVehiculo/:idVehiculo", OrdenReparacionController.getByIDVehiculo.bind(OrdenReparacionController));
 router.get("/ordenreparacion/placas/:placas", OrdenReparacionController.getByPlacaVehiculo.bind(OrdenReparacionController));
 router.get("/ordenreparacion/estado/:estado", OrdenReparacionController.getByEstado.bind(OrdenReparacionController));
+
+/**
+ * @swagger
+ * /api/ordenreparacion/trabajos:
+ *   get:
+ *     summary: Ruta protegida trabajos del empleado (requiere token JWT)
+ *     description: Accede a esta ruta únicamente con un token válido generado en el login, aqui te devuelve todos los registros de los datos de los trabajos del usuario
+ *     tags: [Autenticación]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Acceso concedido
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Acceso concedido a ruta protegida"
+ *               user:
+ *                   id_asignacion: 1
+ *                   id_empleado: 5
+ *                   id_orden_reparacion: 10
+ *                   es_especialista: true
+ *                   id_vehiculo: 2
+ *                   fecha_ingreso: "2024-01-15"
+ *                   hora_ingreso: "09:30:00"
+ *                   fecha_egreso: "2024-01-17"
+ *                   hora_egreso: "16:45:00"
+ *                   estado_orden: "En Curso"
+ *                   estado_descripcion: "Trabajo en progreso"
+ *                   marca: "Toyota"
+ *                   modelo: "Corolla"
+ *                   placas: "ABC123"
+ *                   cantidad_servicios: 3
+ *       401:
+ *         description: Token inválido o ausente
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Token no proporcionado o inválido"
+ */
+router.get("/ordenreparacion/trabajos", authenticateToken, authorize(["Empleado"]), OrdenReparacionController.getWorkByID.bind(OrdenReparacionController));
 module.exports = router;

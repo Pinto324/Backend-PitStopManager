@@ -11,23 +11,18 @@ class EmpleadoOrdenReparacionController extends MasterController {
         try {
             const data = req.body;
             //verifica si el empleado está libre
-            let ordenReparacion = await OrdenReparacionService.getById(id);
-            let fechaHoraInicio = ordenReparacion[0].fecha_ingreso +' '+ordenReparacion[0].hora_ingreso 
-            let fechaHoraFin = ordenReparacion[0].fecha_egreso +' '+ordenReparacion[0].hora_egreso
-            if (await EmpleadoOrdenReparacionService.verifyEmpleadoLibre(data.id_empleado, fechaHoraInicio, fechaHoraFin)) {
-                jsonData = {
+                const jsonData = {
                     id_empleado: data.id_empleado,
                     id_orden_reparacion: data.id_orden_reparacion,
-                    es_especialista: EmpleadoOrdenReparacionService.verifyEspecialista(data.id_empleado)
-                }
+                    es_especialista: await EmpleadoOrdenReparacionService.verifyEspecialista(data.id_empleado)
+            }
+            console.log(jsonData);
             // Insertar Registro
             const insertedId = await this.insertToDBTable(jsonData);
             res.status(201).json({
                 message: "Registro insertado correctamente a " + this.table,
                 id: insertedId
             });
-            }
-
         } catch (error) {
             res.status(500).json({
                 message: "Error al insertar registro a " + this.table,

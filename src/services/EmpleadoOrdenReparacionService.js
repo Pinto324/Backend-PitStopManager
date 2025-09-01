@@ -66,7 +66,7 @@ class EmpleadoOrdenReparacionService extends ModelService {
     try {
       let esEspecialista = true;
       let colums = ["id_empleado"];
-      let values = [idUsuario];
+      let values = idUsuario;
       let especialidadesUser = await EspecialidadService.getAllByParameters(colums, values);
       if (especialidadesUser.length == 0) {
         esEspecialista = false;

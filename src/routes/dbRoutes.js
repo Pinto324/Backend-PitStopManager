@@ -1928,7 +1928,6 @@ router.delete(
   "/ordenreparacion/:id",
   OrdenReparacionController.deleteById.bind(OrdenReparacionController)
 );
-
 // ============================ SERVICIO ROUTES ============================
 /**
  * @swagger

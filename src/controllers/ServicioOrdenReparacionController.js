@@ -12,15 +12,13 @@ class ServicioOrdenReparacionController extends MasterController {
         try {
             const data = req.body;
 
-            jsonData = {
+            const jsonData = {
                 id_orden_reparacion: data.id_orden_reparacion,
                 id_servicio: data.id_servicio,
                 id_estado_trabajo: 2
             }
             // Insertar Registro
             const insertedId = await this.insertToDBTable(jsonData);
-            //añade el tiempo al valor total estimado.
-            calculateTime(insertedId);
             res.status(201).json({
                 message: "Registro insertado correctamente a " + this.table,
                 id: insertedId
