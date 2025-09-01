@@ -5,35 +5,18 @@ class PedidoDetalleService extends ModelService {
     super('Pedido_Detalle');
   }
 
-  async obtenerDetallePedidosProveedor(idUsuario) { 
+  async getDetallePedidosProveedor(idProveedor) {
+    console.log(idProveedor);
     const querry = `
- SELECT 
-     u.id AS id_usuario,
-     u.nombre,
-     u.apellido,
-     v.id AS id_vehiculo,
-     v.marca,
-     v.modelo,
-     v.placas,
-     eor.estado AS estado_orden
- FROM Usuario u
- INNER JOIN Vehiculo v 
-     ON u.id = v.id_cliente
- INNER JOIN Orden_Reparacion orr 
-     ON v.id = orr.id_vehiculo
- INNER JOIN Estado_Orden_Reparacion eor 
-     ON orr.estado = eor.id
- WHERE u.id = ?
-   AND orr.fecha_ingreso = (
-       SELECT MAX(fecha_ingreso) 
-       FROM Orden_Reparacion 
-       WHERE id_vehiculo = v.id
-   );
- 
+SELECT DISTINCT p.id, p.fecha_pedido, p.fecha_entrega, p.estado
+FROM Pedido p
+INNER JOIN Pedido_Detalle pd ON p.id = pd.id_pedido
+INNER JOIN Proveedor_Repuesto pr ON pd.id_proveedor_repuesto = pr.id
+INNER JOIN Proveedor prov ON pr.id_proveedor = prov.id
+WHERE prov.id = ${idProveedor}
          `;
-             const Parametros = [idUsuario];
-             return await Model.executeSelect(querry, Parametros);
-   }
+    return await this.executeQuery(querry);
+  }
 }
 
 module.exports = new PedidoDetalleService();

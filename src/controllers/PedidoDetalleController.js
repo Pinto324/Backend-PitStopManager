@@ -69,6 +69,16 @@ class PedidoDetalleController extends MasterController {
         }
     }
 
+    async getPedidoByIDProveedor(req, res) {
+        try {
+            const { idProveedor } = req.params;
+            let data = await PedidoDetalleService.getDetallePedidosProveedor(idProveedor);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al encontrar ordenes de reparación del empleado" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+    }
+
 }
 
 module.exports = new PedidoDetalleController();
