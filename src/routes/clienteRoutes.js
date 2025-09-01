@@ -129,4 +129,97 @@ router.get("/cliente/vehiculos/:id", UsuarioController.ObtenerDatosDeVehiculos.b
 
 router.get("/cliente/detalle/:id", UsuarioController.ObtenerDatosDeVehiculos.bind(UsuarioController));
 
+/**
+ * @swagger
+ * /api/cliente/reporte/{id}:
+ *   get:
+ *     summary: Obtener reporte detallado de un cliente por ID
+ *     description: Retorna un reporte completo que incluye la información del cliente, sus vehículos y las órdenes de reparación asociadas.
+ *     tags: [Cliente]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: El ID del cliente.
+ *     responses:
+ *       200:
+ *         description: Reporte del cliente obtenido exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_cliente:
+ *                     type: integer
+ *                     description: El ID del cliente.
+ *                     example: 14
+ *                   nombre_cliente:
+ *                     type: string
+ *                     description: El nombre del cliente.
+ *                     example: "Cliente1"
+ *                   apellido_cliente:
+ *                     type: string
+ *                     description: El apellido del cliente.
+ *                     example: "Cliente1"
+ *                   id_vehiculo:
+ *                     type: integer
+ *                     description: El ID del vehículo.
+ *                     example: 1
+ *                   marca:
+ *                     type: string
+ *                     description: La marca del vehículo.
+ *                     example: "Toyota"
+ *                   modelo:
+ *                     type: string
+ *                     description: El modelo del vehículo.
+ *                     example: "Corolla"
+ *                   placas:
+ *                     type: string
+ *                     description: Las placas del vehículo.
+ *                     example: "P123XYZ"
+ *                   id_orden:
+ *                     type: integer
+ *                     description: El ID de la orden de reparación.
+ *                     example: 4
+ *                   fecha_ingreso:
+ *                     type: string
+ *                     format: date-time
+ *                     description: La fecha de ingreso del vehículo al taller.
+ *                     example: "2025-09-01T06:00:00.000Z"
+ *                   fecha_egreso:
+ *                     type: string
+ *                     format: date-time
+ *                     description: La fecha de egreso del vehículo del taller.
+ *                     example: "2025-09-11T06:00:00.000Z"
+ *                   estado_orden:
+ *                     type: string
+ *                     description: El estado de la orden de reparación.
+ *                     example: "En curso"
+ *                   nombre_servicio:
+ *                     type: string
+ *                     description: El nombre del servicio de reparación.
+ *                     example: "Cambio de llantas"
+ *                   descripcion_servicio:
+ *                     type: string
+ *                     description: Una descripción detallada del servicio.
+ *                     example: "Cambio de llantas"
+ *                   precio_servicio:
+ *                     type: number
+ *                     description: El costo del servicio.
+ *                     example: 500
+ *       500:
+ *         description: Error del servidor
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Error del servidor"
+ *               error: "Database connection error"
+ */
+router.get("/cliente/reporte/:id", UsuarioController.reporteHistorialCliente.bind(UsuarioController));
+
 module.exports = router;

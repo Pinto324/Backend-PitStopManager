@@ -87,6 +87,17 @@ class UsuarioController extends MasterController {
         res.status(500).json({ message: "Error al encontrar detalle del vehiculo"+this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
     }
   }
+    async reporteHistorialCliente(req, res) {
+        try {
+            const { id } = req.params;
+            let data = await UsuarioService.reporteHistorialCliente(id);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al hacer reporte de trabajo por filtro trabajo" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+        
+    }
+
   
 }
 
