@@ -74,7 +74,92 @@ ORDER BY orr.fecha_ingreso DESC;
             const Parametros = [fecha_inicio, fecha_final];
             return await Model.executeSelect(querry, Parametros);
     }
-    
+
+        async reporteTrabajoFiltroFecha(fecha_inicio ,fecha_final) { 
+   const querry = `
+SELECT 
+    orr.fecha_ingreso,
+    s.servicio AS tipo_trabajo,
+    u.nombre AS mecanico_nombre,
+    u.apellido AS mecanico_apellido,
+    et.estado AS estado_trabajo
+FROM Orden_Reparacion orr
+INNER JOIN Servicio_Orden_Reparacion sor 
+    ON orr.id = sor.id_orden_reparacion
+INNER JOIN Servicio s 
+    ON sor.id_servicio = s.id
+INNER JOIN Estado_Trabajo et 
+    ON sor.id_estado_trabajo = et.id
+LEFT JOIN Empleado_Orden_Reparacion eor 
+    ON orr.id = eor.id_orden_reparacion
+LEFT JOIN Empleado e 
+    ON eor.id_empleado = e.id
+LEFT JOIN Usuario u 
+    ON e.id_usuario = u.id
+WHERE orr.fecha_ingreso BETWEEN ? AND ?
+ORDER BY orr.fecha_ingreso DESC;
+
+
+        `;
+            const Parametros = [fecha_inicio, fecha_final];
+            return await Model.executeSelect(querry, Parametros);
+    }
+
+            async reporteTrabajoFiltroTipo(id) { 
+   const querry = `
+SELECT 
+    orr.fecha_ingreso,
+    s.servicio AS tipo_trabajo,
+    u.nombre AS mecanico_nombre,
+    u.apellido AS mecanico_apellido,
+    et.estado AS estado_trabajo
+FROM Orden_Reparacion orr
+INNER JOIN Servicio_Orden_Reparacion sor 
+    ON orr.id = sor.id_orden_reparacion
+INNER JOIN Servicio s 
+    ON sor.id_servicio = s.id
+INNER JOIN Estado_Trabajo et 
+    ON sor.id_estado_trabajo = et.id
+LEFT JOIN Empleado_Orden_Reparacion eor 
+    ON orr.id = eor.id_orden_reparacion
+LEFT JOIN Empleado e 
+    ON eor.id_empleado = e.id
+LEFT JOIN Usuario u 
+    ON e.id_usuario = u.id
+WHERE s.id = ?
+ORDER BY orr.fecha_ingreso DESC;
+        `;
+            const Parametros = [id];
+            return await Model.executeSelect(querry, Parametros);
+    }
+                async reporteTrabajoFiltroTrabajador(id) { 
+   const querry = `
+SELECT 
+    orr.fecha_ingreso,
+    s.servicio AS tipo_trabajo,
+    u.nombre AS mecanico_nombre,
+    u.apellido AS mecanico_apellido,
+    et.estado AS estado_trabajo
+FROM Orden_Reparacion orr
+INNER JOIN Servicio_Orden_Reparacion sor 
+    ON orr.id = sor.id_orden_reparacion
+INNER JOIN Servicio s 
+    ON sor.id_servicio = s.id
+INNER JOIN Estado_Trabajo et 
+    ON sor.id_estado_trabajo = et.id
+INNER JOIN Empleado_Orden_Reparacion eor 
+    ON orr.id = eor.id_orden_reparacion
+INNER JOIN Empleado e 
+    ON eor.id_empleado = e.id
+INNER JOIN Usuario u 
+    ON e.id_usuario = u.id
+WHERE e.id = ?
+ORDER BY orr.fecha_ingreso DESC;
+
+        `;
+            const Parametros = [id];
+            return await Model.executeSelect(querry, Parametros);
+    }
         async getWorkVehiculoByID(idVehiculo) { 
    const querry = `
 SELECT 

@@ -341,4 +341,184 @@ router.get("/ordenreparacion/vehiculo/:id", OrdenReparacionController.getWorkVeh
  *               error: "Database connection error"
  */
 router.post("/ordenreparacion/Reporte/Trabajo", OrdenReparacionController.reporteTrabajoPeriodo.bind(OrdenReparacionController));
+/**
+ * @swagger
+ * /api/ordenreparacion/Reporte/TrabajoFecha:
+ *   post:
+ *     summary: Generar reporte de trabajos por rango de fechas
+ *     description: Retorna una lista de trabajos realizados en un rango de fechas específico, incluyendo el mecánico asignado y el estado del trabajo.
+ *     tags: [OrdenReparacion]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - fecha_inicio
+ *               - fecha_final
+ *             properties:
+ *               fecha_inicio:
+ *                 type: string
+ *                 format: date
+ *                 description: Fecha de inicio para el reporte (YYYY-MM-DD).
+ *                 example: "2024-01-01"
+ *               fecha_final:
+ *                 type: string
+ *                 format: date
+ *                 description: Fecha de fin para el reporte (YYYY-MM-DD).
+ *                 example: "2024-12-31"
+ *     responses:
+ *       200:
+ *         description: Reporte de trabajos obtenido exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   fecha_ingreso:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Fecha en que se ingresó el trabajo.
+ *                     example: "2024-01-15T06:00:00.000Z"
+ *                   tipo_trabajo:
+ *                     type: string
+ *                     description: El nombre del tipo de trabajo o servicio.
+ *                     example: "Cambio de aceite y filtro"
+ *                   mecanico_nombre:
+ *                     type: string
+ *                     description: El nombre del mecánico que realizó el trabajo.
+ *                     example: "Empleado1"
+ *                   mecanico_apellido:
+ *                     type: string
+ *                     description: El apellido del mecánico.
+ *                     example: "Empleadoo1"
+ *                   estado_trabajo:
+ *                     type: string
+ *                     description: El estado actual del trabajo.
+ *                     example: "Completado"
+ *       500:
+ *         description: Error del servidor.
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Error del servidor"
+ *               error: "Database connection error"
+ */
+router.post("/ordenreparacion/Reporte/TrabajoFecha", OrdenReparacionController.reporteTrabajoFiltroFecha.bind(OrdenReparacionController));
+/**
+ * @swagger
+ * /api/ordenreparacion/Reporte/Trabajo/{id}:
+ *   get:
+ *     summary: Obtener reporte de trabajos de una orden de reparación por ID
+ *     description: Retorna un reporte detallado de los trabajos asociados a una orden de reparación específica, incluyendo el tipo de trabajo, el mecánico asignado y el estado del mismo.
+ *     tags: [OrdenReparacion]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: El ID de la orden de reparación.
+ *     responses:
+ *       200:
+ *         description: Reporte de trabajos de la orden obtenido exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   fecha_ingreso:
+ *                     type: string
+ *                     format: date-time
+ *                     description: La fecha de ingreso del trabajo.
+ *                     example: "2025-09-01T06:00:00.000Z"
+ *                   tipo_trabajo:
+ *                     type: string
+ *                     description: El nombre del tipo de trabajo o servicio.
+ *                     example: "Cambio de llantas"
+ *                   mecanico_nombre:
+ *                     type: string
+ *                     nullable: true
+ *                     description: El nombre del mecánico asignado al trabajo. Puede ser nulo si no se ha asignado un mecánico.
+ *                     example: "null"
+ *                   mecanico_apellido:
+ *                     type: string
+ *                     nullable: true
+ *                     description: El apellido del mecánico asignado. Puede ser nulo si no se ha asignado un mecánico.
+ *                     example: "null"
+ *                   estado_trabajo:
+ *                     type: string
+ *                     description: El estado actual del trabajo.
+ *                     example: "Pendiente"
+ *       500:
+ *         description: Error del servidor
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Error del servidor"
+ *               error: "Database connection error"
+ */
+router.get("/ordenreparacion/Reporte/Trabajo/:id", OrdenReparacionController.reporteTrabajoFiltroTrabajo.bind(OrdenReparacionController));
+/**
+ * @swagger
+ * /api/ordenreparacion/Reporte/Trabajador/{id}:
+ *   get:
+ *     summary: Obtener reporte de trabajos por ID de trabajador
+ *     description: Retorna una lista de los trabajos realizados por un mecánico específico, incluyendo el tipo de trabajo, su estado y la fecha de ingreso.
+ *     tags: [OrdenReparacion]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: El ID del trabajador (mecánico).
+ *     responses:
+ *       200:
+ *         description: Reporte de trabajos del mecánico obtenido exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   fecha_ingreso:
+ *                     type: string
+ *                     format: date-time
+ *                     description: La fecha de ingreso del trabajo.
+ *                     example: "2024-01-15T06:00:00.000Z"
+ *                   tipo_trabajo:
+ *                     type: string
+ *                     description: El nombre del tipo de trabajo o servicio.
+ *                     example: "Cambio de aceite y filtro"
+ *                   mecanico_nombre:
+ *                     type: string
+ *                     description: El nombre del mecánico que realizó el trabajo.
+ *                     example: "Empleado1"
+ *                   mecanico_apellido:
+ *                     type: string
+ *                     description: El apellido del mecánico.
+ *                     example: "Empleadoo1"
+ *                   estado_trabajo:
+ *                     type: string
+ *                     description: El estado actual del trabajo.
+ *                     example: "Completado"
+ *       500:
+ *         description: Error del servidor
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: false
+ *               message: "Error del servidor"
+ *               error: "Database connection error"
+ */
+router.get("/ordenreparacion/Reporte/Trabajador/:id", OrdenReparacionController.reporteTrabajoFiltroTrabajor.bind(OrdenReparacionController));
 module.exports = router;
