@@ -42,7 +42,40 @@ WHERE e.id_usuario = ?
             return await Model.executeSelect(querry, Parametros);
   }
 
-    async getWorkVehiculoByID(idVehiculo) { 
+    async reporteTrabajoPeriodo(fecha_inicio ,fecha_final) { 
+   const querry = `
+SELECT 
+    orr.id AS id_orden,
+    orr.fecha_ingreso,
+    orr.fecha_egreso,
+    s.servicio,
+    s.descripcion,
+    s.precio,
+    et.estado AS estado_trabajo,
+    u.nombre AS mecanico_nombre,
+    u.apellido AS mecanico_apellido
+FROM Orden_Reparacion orr
+INNER JOIN Servicio_Orden_Reparacion sor 
+    ON orr.id = sor.id_orden_reparacion
+INNER JOIN Servicio s 
+    ON sor.id_servicio = s.id
+INNER JOIN Estado_Trabajo et 
+    ON sor.id_estado_trabajo = et.id
+LEFT JOIN Empleado_Orden_Reparacion eor 
+    ON orr.id = eor.id_orden_reparacion
+LEFT JOIN Empleado e 
+    ON eor.id_empleado = e.id
+LEFT JOIN Usuario u 
+    ON e.id_usuario = u.id
+WHERE orr.fecha_ingreso BETWEEN ? AND ?
+ORDER BY orr.fecha_ingreso DESC;
+
+        `;
+            const Parametros = [fecha_inicio, fecha_final];
+            return await Model.executeSelect(querry, Parametros);
+    }
+    
+        async getWorkVehiculoByID(idVehiculo) { 
    const querry = `
 SELECT 
     orr.id AS id_orden,

@@ -64,4 +64,6 @@ const VehiculoController = require("../controllers/VehiculoController");
 
 router.get("/vehiculo/idUser/:idUser", VehiculoController.getByIDUser.bind(VehiculoController));
 
+router.get("/vehiculo/Reporte/:id", VehiculoController.getByIDUser.bind(VehiculoController));
+
 module.exports = router;

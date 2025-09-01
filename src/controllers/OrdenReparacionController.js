@@ -95,6 +95,16 @@ class OrdenReparacionController extends MasterController {
         }
     }
 
+        async reporteTrabajoPeriodo(req, res) {
+        try {
+            const { fecha_inicio, fecha_final } = req.body;
+            let data = await OrdenReparacionService.reporteTrabajoPeriodo(fecha_inicio, fecha_final);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al hacer reporte de trabajo por periodo" + this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+    }
+
 }
 
 module.exports = new OrdenReparacionController();

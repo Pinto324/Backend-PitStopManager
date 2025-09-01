@@ -75,7 +75,15 @@ class VehiculoController extends MasterController {
             throw new Error("Error al obtener Vehículos con placas: " + error.message);
         }
     }
-
+    async getByIDVehiculo(req, res) {
+        try {
+            const { id } = req.params;
+            let data = await VehiculoService.reporteVehiculo(id);
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: "Error al encontrar reporte de vehiculos"+this.table, name: error.name, code: error.code || "unknown", errorMessage: error.message });
+        }
+    }
 }
 
 module.exports = new VehiculoController();
